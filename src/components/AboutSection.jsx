@@ -1,4 +1,5 @@
 import { Trophy, Truck, RotateCcw, Phone } from 'lucide-react';
+import CountUp from './CountUp';
 import './AboutSection.css';
 
 const features = [
@@ -63,7 +64,13 @@ export default function AboutSection() {
           <div className="about-section__stats">
             {stats.map(({ value, label }) => (
               <div key={label} className="about-section__stat">
-                <div className="about-section__stat-value">{value}</div>
+                <div className="about-section__stat-value">
+                  <CountUp 
+                    end={parseInt(value)} 
+                    suffix={value.includes('+') ? '+' : ''} 
+                    duration={2500}
+                  />
+                </div>
                 <div className="about-section__stat-label">
                   {label.toUpperCase()}
                 </div>

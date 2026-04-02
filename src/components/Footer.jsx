@@ -1,4 +1,4 @@
-import { MapPin, Phone, Mail } from 'lucide-react';
+import { MapPin, Phone, Mail, Instagram, Facebook, Youtube, Send } from 'lucide-react';
 import Logo from './Logo';
 import './Footer.css';
 
@@ -58,9 +58,7 @@ export default function Footer({ onAdminAccess }) {
           {/* Link Columns */}
           {footerLinks.map(({ heading, links }) => (
             <div key={heading} className="footer__column">
-              <div className="footer__column-heading">
-                {heading.toUpperCase()}
-              </div>
+              <div className="footer__column-heading">{heading}</div>
               {links.map((link) => (
                 <div key={link} className="footer__link">
                   {link}
@@ -68,6 +66,33 @@ export default function Footer({ onAdminAccess }) {
               ))}
             </div>
           ))}
+
+          {/* Newsletter Column */}
+          <div className="footer__column footer__column--newsletter">
+            <div className="footer__column-heading">JOIN THE SQUAD</div>
+            <p className="footer__newsletter-text">
+              Subscribe to get exclusive early access to new boot drops and Bankura-only discounts.
+            </p>
+            <form className="footer__newsletter-form" onSubmit={(e) => e.preventDefault()}>
+              <input type="email" placeholder="Email address" className="footer__newsletter-input" required />
+              <button type="submit" className="footer__newsletter-btn">
+                <Send size={14} />
+              </button>
+            </form>
+            <div className="footer__socials">
+              <Instagram size={18} className="footer__social-icon" />
+              <Facebook size={18} className="footer__social-icon" />
+              <Youtube size={18} className="footer__social-icon" />
+            </div>
+          </div>
+        </div>
+
+        <div className="footer__payments">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo.png" alt="UPI" className="footer__payment-icon" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Google_Pay_%28GPay%29_Logo.svg" alt="GPay" className="footer__payment-icon" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/PhonePe_Logo.svg" alt="PhonePe" className="footer__payment-icon" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="footer__payment-icon" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="footer__payment-icon" />
         </div>
 
         <div className="footer__bottom">
