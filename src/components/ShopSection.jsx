@@ -132,11 +132,6 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
           )}
         </div>
 
-        {filtered.length === 0 && (
-          <div className="shop-section__empty">
-            No boots found. Try a different filter.
-          </div>
-        )}
       </div>
     </section>
   );

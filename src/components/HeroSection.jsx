@@ -43,9 +43,9 @@ export default function HeroSection({ onShop }) {
         </div>
 
         <h1 className="hero__title">
-          ELEVATE
+          PLAY
           <br />
-          <em>YOUR GAME</em>
+          <em>BEYOND LIMITS</em>
         </h1>
 
         <p className="hero__tagline">We believe in quality.</p>
