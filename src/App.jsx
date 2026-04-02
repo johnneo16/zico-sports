@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import BrandsSection from './components/BrandsSection';
+import WhyChooseUs from './components/WhyChooseUs';
 import ShopSection from './components/ShopSection';
 import SizeGuideSection from './components/SizeGuideSection';
 import AboutSection from './components/AboutSection';
@@ -9,16 +10,20 @@ import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import ProductModal from './components/ProductModal';
 import CartDrawer from './components/CartDrawer';
+import AdminLogin from './components/AdminLogin';
+import BackToTop from './components/BackToTop';
 import AdminPanel from './components/AdminPanel';
-import SPIKE_PRODUCTS from './data/products';
-
-/**
- * Root application component.
- * Manages global state: mode (store/admin), products, cart, and modals.
- */
 export default function App() {
   const [mode, setMode] = useState('store');
-  const [products, setProducts] = useState(SPIKE_PRODUCTS);
+  const [products, setProducts] = useState([]);
+
+  // Fetch products on mount
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => setProducts(data))
+      .catch(err => console.error("Failed to load products:", err));
+  }, []);
   const [cart, setCart] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [selected, setSelected] = useState(null);
@@ -41,7 +46,21 @@ export default function App() {
 
   const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
 
-  // Admin mode
+  const handleAdminAccess = () => {
+    setMode('login');
+  };
+
+  // Admin login gate
+  if (mode === 'login') {
+    return (
+      <AdminLogin
+        onSuccess={() => setMode('admin')}
+        onBack={() => setMode('store')}
+      />
+    );
+  }
+
+  // Admin panel
   if (mode === 'admin') {
     return (
       <AdminPanel
@@ -58,7 +77,7 @@ export default function App() {
       <Navbar
         cartCount={cartCount}
         onCartOpen={() => setCartOpen(true)}
-        onAdminAccess={() => setMode('admin')}
+        onAdminAccess={handleAdminAccess}
       />
       <HeroSection
         onShop={() =>
@@ -68,6 +87,7 @@ export default function App() {
         }
       />
       <BrandsSection />
+      <WhyChooseUs />
       <ShopSection
         products={products}
         onSelect={setSelected}
@@ -76,9 +96,10 @@ export default function App() {
       <SizeGuideSection />
       <AboutSection />
       <ContactSection />
-      <Footer />
+      <Footer onAdminAccess={handleAdminAccess} />
 
-      {/* Modals */}
+      {/* Modals & Overlays */}
+      <BackToTop />
       {selected && (
         <ProductModal
           product={selected}

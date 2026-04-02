@@ -69,11 +69,26 @@
   background: var(--zico-red-subtle);
 }
 
+.about-section__tagline {
+  color: var(--accent-amber);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 16px;
+  margin: 8px 0 0;
+  letter-spacing: 0.5px;
+}
+
 .about-feature__icon {
-  font-size: 20px;
   width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(230, 60, 47, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  text-align: center;
+  color: var(--zico-red);
   margin-top: 2px;
 }
 

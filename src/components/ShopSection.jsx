@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Search } from 'lucide-react';
 import ProductCard from './ProductCard';
 import { BRANDS, SURFACES } from '../constants';
 import './ShopSection.css';

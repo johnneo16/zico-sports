@@ -1,3 +1,4 @@
+import { X, ShoppingBag, AlertCircle } from 'lucide-react';
 import Stars from './Stars';
 import { formatPrice, getDiscount } from '../utils/format';
 import './ProductModal.css';
@@ -15,14 +16,15 @@ export default function ProductModal({ product, onClose, onAddCart }) {
         className="product-modal animate-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
-        <div
-          className="product-modal__hero"
-          style={{ background: product.gradient }}
-        >
-          <span className="product-modal__emoji">{product.emoji}</span>
+        <div className="product-modal__hero">
+          {product.image ? (
+            <img src={product.image} alt={product.name} className="product-modal__photo" loading="lazy" />
+          ) : (
+            <span className="product-modal__emoji">{product.emoji || '👟'}</span>
+          )}
           <div className="product-modal__surface">{product.surface}</div>
           <button className="product-modal__close" onClick={onClose}>
-            ✕
+            <X size={16} />
           </button>
         </div>
 
@@ -55,6 +57,7 @@ export default function ProductModal({ product, onClose, onAddCart }) {
                 onClose();
               }}
             >
+              <ShoppingBag size={16} />
               ADD TO CART
             </button>
           </div>
@@ -64,9 +67,11 @@ export default function ProductModal({ product, onClose, onAddCart }) {
               product.stock < 10 ? 'product-modal__stock--low' : ''
             }`}
           >
-            {product.stock < 10
-              ? `⚠ Only ${product.stock} left`
-              : `✓ ${product.stock} in stock`}
+            {product.stock < 10 ? (
+              <><AlertCircle size={13} /> Only {product.stock} left</>
+            ) : (
+              <>✓ {product.stock} in stock</>
+            )}
           </div>
         </div>
       </div>

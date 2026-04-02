@@ -41,7 +41,36 @@
   color: var(--text-ghost);
   font-size: 12px;
   line-height: 1.9;
-  max-width: 220px;
+  max-width: 260px;
+}
+
+.footer__brand-tagline {
+  color: var(--accent-amber);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.footer__contact-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.footer__contact-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-ghost);
+}
+
+.footer__contact-item svg {
+  color: var(--zico-red);
+  flex-shrink: 0;
 }
 
 /* Link Columns */
