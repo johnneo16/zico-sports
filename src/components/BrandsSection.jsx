@@ -40,7 +40,7 @@ const brandList = [
   {
     name: 'Asics',
     desc: 'Gel comfort tech',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Asics_Logo.svg',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Asics_Logo.svg/512px-Asics_Logo.svg.png',
     color: '#004d40',
   },
   {
