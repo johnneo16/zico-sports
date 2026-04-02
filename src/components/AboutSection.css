@@ -1,41 +1,60 @@
 .about-section {
-  background: var(--bg-primary);
   padding: var(--section-padding);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-default);
 }
 
 .about-section__container {
-  max-width: 1000px;
+  max-width: var(--container-max);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 80px;
   align-items: center;
 }
 
-/* Story */
+.about-section__story {
+  animation: fadeIn 0.8s ease backwards;
+}
+
 .about-section__title {
+  font-size: 42px;
   line-height: 1.1;
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 
 .about-section__text {
-  color: var(--text-muted);
-  line-height: 1.9;
-  margin-bottom: 14px;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  max-width: 600px;
+}
+
+.about-section__tagline {
+  color: var(--zico-red);
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 11px;
+  margin-bottom: 32px;
+  text-transform: uppercase;
 }
 
 .about-section__stats {
   display: flex;
-  gap: 28px;
-  margin-top: 30px;
+  gap: 40px;
+  margin-top: 40px;
 }
 
 .about-section__stat-value {
-  font-size: 22px;
+  font-size: 32px;
   font-weight: 900;
-  color: var(--zico-red);
+  background: linear-gradient(135deg, #ffffff, #9ca3af);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   font-family: var(--font-mono);
+  margin-bottom: 4px;
 }
 
 .about-section__stat-label {
@@ -69,11 +88,26 @@
   background: var(--zico-red-subtle);
 }
 
+.about-section__tagline {
+  color: var(--accent-amber);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 16px;
+  margin: 8px 0 0;
+  letter-spacing: 0.5px;
+}
+
 .about-feature__icon {
-  font-size: 20px;
   width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(230, 60, 47, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  text-align: center;
+  color: var(--zico-red);
   margin-top: 2px;
 }
 

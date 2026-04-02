@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ShoppingCart, Star, Flame } from 'lucide-react';
 import Stars from './Stars';
 import { formatPrice, getDiscount } from '../utils/format';
 import './ProductCard.css';
@@ -18,14 +19,17 @@ export default function ProductCard({ product, onSelect, onAddCart }) {
     >
       <div
         className="product-card__image"
-        style={{ background: product.gradient }}
         onClick={() => onSelect(product)}
       >
-        <span className="product-card__emoji">{product.emoji}</span>
+        {product.image ? (
+          <img src={product.image} alt={product.name} className="product-card__photo" loading="lazy" />
+        ) : (
+          <span className="product-card__emoji">{product.emoji || '👟'}</span>
+        )}
         <div className="product-card__surface">{product.surface}</div>
         {product.hot && (
           <div className="product-card__badge product-card__badge--hot">
-            🔥 HOT
+            <Flame size={10} /> HOT
           </div>
         )}
         {discount && (
@@ -61,6 +65,7 @@ export default function ProductCard({ product, onSelect, onAddCart }) {
               onAddCart(product);
             }}
           >
+            <ShoppingCart size={12} />
             ADD
           </button>
         </div>

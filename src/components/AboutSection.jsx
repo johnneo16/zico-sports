@@ -1,25 +1,27 @@
+import { Trophy, Truck, RotateCcw, Phone } from 'lucide-react';
+import CountUp from './CountUp';
 import './AboutSection.css';
 
 const features = [
   {
-    icon: '🏆',
+    icon: Trophy,
     title: 'Expert Curation',
     desc: 'Every boot tested by real players, not just influencers.',
   },
   {
-    icon: '🚚',
+    icon: Truck,
     title: 'Fast Pan-India Delivery',
     desc: 'Free delivery above ₹1500. 2–5 day dispatch.',
   },
   {
-    icon: '↩',
+    icon: RotateCcw,
     title: '30-Day Easy Returns',
     desc: "Didn't fit? No problem. Full return, no questions.",
   },
   {
-    icon: '📞',
+    icon: Phone,
     title: 'Boot Fitting Help',
-    desc: "WhatsApp us — we'll help you choose the right boot for your game.",
+    desc: "Call us at 7987461287 — we'll help you choose the right boot for your game.",
   },
 ];
 
@@ -58,10 +60,17 @@ export default function AboutSection() {
             grass, artificial turf, and every surface in between. We give real
             advice — because we've played in the same boots.
           </p>
+          <p className="about-section__tagline">We believe in quality.</p>
           <div className="about-section__stats">
             {stats.map(({ value, label }) => (
               <div key={label} className="about-section__stat">
-                <div className="about-section__stat-value">{value}</div>
+                <div className="about-section__stat-value">
+                  <CountUp 
+                    end={parseInt(value)} 
+                    suffix={value.includes('+') ? '+' : ''} 
+                    duration={2500}
+                  />
+                </div>
                 <div className="about-section__stat-label">
                   {label.toUpperCase()}
                 </div>
@@ -71,9 +80,11 @@ export default function AboutSection() {
         </div>
 
         <div className="about-section__features">
-          {features.map(({ icon, title, desc }) => (
+          {features.map(({ icon: Icon, title, desc }) => (
             <div key={title} className="about-feature">
-              <div className="about-feature__icon">{icon}</div>
+              <div className="about-feature__icon">
+                <Icon size={18} />
+              </div>
               <div>
                 <div className="about-feature__title">{title}</div>
                 <div className="about-feature__desc">{desc}</div>

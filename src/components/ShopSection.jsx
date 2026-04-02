@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Search } from 'lucide-react';
 import ProductCard from './ProductCard';
 import { BRANDS, SURFACES } from '../constants';
 import './ShopSection.css';
@@ -11,6 +12,13 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
   const [surface, setSurface] = useState('All Surfaces');
   const [sort, setSort] = useState('popular');
   const [search, setSearch] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+
+  const clearFilters = () => {
+    setBrand('All');
+    setSurface('All Surfaces');
+    setSearch('');
+  };
 
   let filtered = products.filter((p) => {
     if (brand !== 'All' && p.brand !== brand) return false;
@@ -92,25 +100,38 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
 
         <div className="shop-section__count">
           {filtered.length} BOOTS FOUND
+          {(brand !== 'All' || surface !== 'All Surfaces' || search) && (
+            <button className="shop-section__clear-btn" onClick={clearFilters}>
+              CLEAR ALL
+            </button>
+          )}
         </div>
 
         {/* Product Grid */}
         <div className="shop-grid">
-          {filtered.map((p) => (
-            <ProductCard
-              key={p.id}
-              product={p}
-              onSelect={onSelect}
-              onAddCart={onAddCart}
-            />
-          ))}
+          {filtered.length > 0 ? (
+            filtered.map((p) => (
+              <ProductCard
+                key={p.id}
+                product={p}
+                onSelect={onSelect}
+                onAddCart={onAddCart}
+              />
+            ))
+          ) : (
+            <div className="shop-grid__empty">
+              <div className="shop-grid__empty-icon">👟</div>
+              <h3 className="shop-grid__empty-title">No Boots Found</h3>
+              <p className="shop-grid__empty-text">
+                Try adjusting your filters or search terms to find what you're looking for.
+              </p>
+              <button className="shop-grid__empty-btn" onClick={clearFilters}>
+                VIEW ALL COLLECTION
+              </button>
+            </div>
+          )}
         </div>
 
-        {filtered.length === 0 && (
-          <div className="shop-section__empty">
-            No boots found. Try a different filter.
-          </div>
-        )}
       </div>
     </section>
   );

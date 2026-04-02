@@ -1,3 +1,4 @@
+import { Ruler, Info } from 'lucide-react';
 import './SizeGuideSection.css';
 
 const sizes = [
@@ -21,6 +22,7 @@ export default function SizeGuideSection() {
           <h2 className="section-title">
             Size <em>Guide</em>
           </h2>
+          <p className="size-guide__subtitle">Measurements are approximate. Use foot length for the best fit!</p>
         </div>
 
         <div className="size-guide__table">
@@ -47,10 +49,15 @@ export default function SizeGuideSection() {
           ))}
         </div>
 
-        <p className="size-guide__tip">
-          PRO TIP: Football boots typically run half a size smaller — order half
-          a size up if between sizes.
-        </p>
+        <div className="size-guide__banner">
+          <div className="size-guide__banner-icon">
+            <Info size={24} />
+          </div>
+          <div className="size-guide__banner-content">
+            <h4 className="size-guide__banner-title">PRO TIP: PERFECT FIT</h4>
+            <p className="size-guide__banner-text">Football boots typically run slightly tighter than standard shoes. Order half a size up for maximum comfort during play!</p>
+          </div>
+        </div>
       </div>
     </section>
   );

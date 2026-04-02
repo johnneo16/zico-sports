@@ -1,3 +1,4 @@
+import { X, Trash2, ShoppingBag, Truck } from 'lucide-react';
 import Logo from './Logo';
 import { formatPrice } from '../utils/format';
 import './CartDrawer.css';
@@ -8,22 +9,36 @@ import './CartDrawer.css';
 export default function CartDrawer({ cart, onClose, onRemove }) {
   const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
+  const handleCheckout = () => {
+    let msg = `Hi Zico Sports, I'd like to place an order!\n\n*Order Details:*\n`;
+    cart.forEach(item => {
+      msg += `- ${item.name} (${item.brand}) - Qty: ${item.qty} - ₹${item.price * item.qty}\n`;
+    });
+    msg += `\n*Total Amount:* ₹${total}\n\nI want to pay via UPI (GPay/PhonePe). Please share your UPI ID or QR details!`;
+    const encoded = encodeURIComponent(msg);
+    window.open(`https://wa.me/917987461287?text=${encoded}`, '_blank');
+  };
+
   return (
     <div className="cart-overlay">
       <div className="cart-overlay__backdrop" onClick={onClose} />
-      <div className="cart-drawer animate-slide-in">
+      <div className="cart-drawer">
         <div className="cart-drawer__header">
           <div className="cart-drawer__header-left">
-            <Logo size={30} />
+            <ShoppingBag size={20} className="cart-drawer__header-icon" />
             <span className="cart-drawer__title">Your Cart</span>
           </div>
           <button className="cart-drawer__close" onClick={onClose}>
-            ✕
+            <X size={18} />
           </button>
         </div>
 
         {cart.length === 0 ? (
-          <div className="cart-drawer__empty">Your cart is empty ⚽</div>
+          <div className="cart-drawer__empty">
+            <ShoppingBag size={40} className="cart-drawer__empty-icon" />
+            <p>Your cart is empty</p>
+            <span>Add some boots to get started!</span>
+          </div>
         ) : (
           <>
             <div className="cart-drawer__items">
@@ -31,9 +46,8 @@ export default function CartDrawer({ cart, onClose, onRemove }) {
                 <div key={item.id} className="cart-item">
                   <div
                     className="cart-item__thumb"
-                    style={{ background: item.gradient }}
                   >
-                    {item.emoji}
+                    <img src={item.image || '/golden_boot.png'} alt={item.name} style={{ width: '80%', height: '80%', objectFit: 'contain' }} />
                   </div>
                   <div className="cart-item__info">
                     <div className="cart-item__brand">{item.brand}</div>
@@ -48,7 +62,7 @@ export default function CartDrawer({ cart, onClose, onRemove }) {
                       className="cart-item__remove"
                       onClick={() => onRemove(item.id)}
                     >
-                      REMOVE
+                      <Trash2 size={12} />
                     </button>
                   </div>
                 </div>
@@ -63,11 +77,14 @@ export default function CartDrawer({ cart, onClose, onRemove }) {
                 </span>
               </div>
               <div className="cart-drawer__delivery-note">
+                <Truck size={12} />
                 {total >= 1500
-                  ? '✓ FREE DELIVERY APPLIED'
+                  ? 'FREE DELIVERY APPLIED'
                   : `Add ${formatPrice(1500 - total)} more for free delivery`}
               </div>
-              <button className="cart-drawer__checkout-btn">CHECKOUT →</button>
+              <button className="cart-drawer__checkout-btn" onClick={handleCheckout}>
+                PAY VIA UPI / WHATSAPP
+              </button>
             </div>
           </>
         )}

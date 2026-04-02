@@ -27,20 +27,23 @@
 }
 
 .shop-filters__search {
-  flex: 1 1 160px;
-  background: var(--bg-input);
-  border: 1px solid var(--border-hover);
-  border-radius: var(--radius-md);
-  padding: 9px 14px;
+  flex: 1;
+  min-width: 280px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  padding: 14px 24px;
   color: var(--text-primary);
-  font-size: 13px;
-  font-family: var(--font-mono);
-  outline: none;
-  transition: border-color var(--transition-fast);
+  font-size: 14px;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
 }
 
 .shop-filters__search:focus {
+  outline: none;
   border-color: var(--zico-red);
+  box-shadow: 0 0 0 4px var(--zico-red-subtle);
+  transform: translateY(-1px);
 }
 
 .shop-filters__pills {

@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import Logo from './Logo';
-import { BRANDS, SURFACE_OPTIONS, GRADIENT_PRESETS } from '../constants';
+import { BRANDS, SURFACE_OPTIONS } from '../constants';
 import { formatPrice } from '../utils/format';
 import './AdminPanel.css';
 
 /**
  * Admin panel for managing products — add, edit, delete boots.
+ * Fully integrated with Express backend for persistence and image uploads.
  */
 export default function AdminPanel({ products, setProducts, onExit }) {
   const [editing, setEditing] = useState(null);
   const [adding, setAdding] = useState(false);
   const [form, setForm] = useState({});
   const [saved, setSaved] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const startEdit = (product) => {
     setEditing(product.id);
@@ -34,8 +36,7 @@ export default function AdminPanel({ products, setProducts, onExit }) {
       hot: false,
       rating: 4.5,
       reviews: 0,
-      gradient: GRADIENT_PRESETS[0].value,
-      emoji: '👟',
+      image: '',
     });
   };
 
@@ -44,7 +45,32 @@ export default function AdminPanel({ products, setProducts, onExit }) {
     setAdding(false);
   };
 
-  const save = () => {
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+      if (data.imageUrl) {
+        updateField('image', data.imageUrl);
+      }
+    } catch (err) {
+      console.error('Upload failed', err);
+      alert('Failed to upload image. Server running?');
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const save = async () => {
     const item = {
       ...form,
       price: Number(form.price),
@@ -53,20 +79,43 @@ export default function AdminPanel({ products, setProducts, onExit }) {
       reviews: Number(form.reviews),
       originalPrice: form.originalPrice ? Number(form.originalPrice) : null,
     };
-    if (adding) {
-      setProducts((prev) => [...prev, item]);
-    } else {
-      setProducts((prev) =>
-        prev.map((x) => (x.id === editing ? item : x))
-      );
+
+    try {
+      if (adding) {
+        const res = await fetch('/api/products', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(item),
+        });
+        const savedItem = await res.json();
+        setProducts((prev) => [...prev, savedItem]);
+      } else {
+        const res = await fetch(`/api/products/${editing}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(item),
+        });
+        const savedItem = await res.json();
+        setProducts((prev) =>
+          prev.map((x) => (x.id === editing ? savedItem : x))
+        );
+      }
+      cancel();
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch (err) {
+      console.error('Save failed', err);
+      alert('Failed to save to database.');
     }
-    cancel();
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
   };
 
-  const remove = (id) => {
-    setProducts((prev) => prev.filter((x) => x.id !== id));
+  const remove = async (id) => {
+    try {
+      await fetch(`/api/products/${id}`, { method: 'DELETE' });
+      setProducts((prev) => prev.filter((x) => x.id !== id));
+    } catch (err) {
+      console.error('Delete failed', err);
+    }
   };
 
   const updateField = (key, value) => {
@@ -82,7 +131,6 @@ export default function AdminPanel({ products, setProducts, onExit }) {
     { key: 'stock', label: 'Stock Quantity', type: 'number' },
     { key: 'rating', label: 'Rating (0–5)', type: 'number' },
     { key: 'reviews', label: 'Review Count', type: 'number' },
-    { key: 'emoji', label: 'Emoji Icon', type: 'text' },
   ];
 
   return (
@@ -124,9 +172,13 @@ export default function AdminPanel({ products, setProducts, onExit }) {
               >
                 <div
                   className="admin__product-thumb"
-                  style={{ background: p.gradient }}
+                  style={{ background: 'var(--bg-studio-radial)' }}
                 >
-                  {p.emoji}
+                  {p.image ? (
+                    <img src={p.image} alt={p.name} style={{ width: '80%', height: '80%', objectFit: 'contain' }} />
+                  ) : (
+                    <span style={{ fontSize: '24px' }}>{p.emoji || '👟'}</span>
+                  )}
                 </div>
                 <div className="admin__product-info">
                   <div className="admin__product-name">{p.name}</div>
@@ -162,14 +214,39 @@ export default function AdminPanel({ products, setProducts, onExit }) {
               {adding ? 'NEW PRODUCT' : 'EDIT PRODUCT'}
             </div>
 
-            {/* Preview */}
+            {/* Preview Area Studio Style */}
             <div
               className="admin__editor-preview"
-              style={{ background: form.gradient || GRADIENT_PRESETS[0].value }}
+              style={{ background: 'var(--bg-studio-radial)', height: '180px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
-              <span className="admin__editor-preview-emoji">
-                {form.emoji || '👟'}
-              </span>
+              {form.image ? (
+                <img src={form.image} alt="Preview" style={{ maxWidth: '80%', maxHeight: '80%', objectFit: 'contain', filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.3))' }} />
+              ) : (
+                <span className="admin__editor-preview-emoji">
+                  {form.emoji || '👟'}
+                </span>
+              )}
+            </div>
+
+            {/* Image Upload */}
+            <div className="admin__field">
+              <label className="admin__label">PRODUCT IMAGE (REAL PHOTO)</label>
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={handleImageUpload} 
+                className="admin__input" 
+                style={{ padding: '8px' }}
+              />
+              {uploading && <span style={{ fontSize: '12px', color: 'var(--accent-blue)', marginTop: '4px', display: 'block' }}>Uploading...</span>}
+              <input
+                type="text"
+                value={form.image || ''}
+                onChange={(e) => updateField('image', e.target.value)}
+                className="admin__input admin__input--small"
+                placeholder="Or paste an image URL..."
+                style={{ marginTop: '8px' }}
+              />
             </div>
 
             {inputFields.map(({ key, label, type }) => (
@@ -208,31 +285,6 @@ export default function AdminPanel({ products, setProducts, onExit }) {
                   <option key={s}>{s}</option>
                 ))}
               </select>
-            </div>
-
-            <div className="admin__field">
-              <label className="admin__label">CARD GRADIENT</label>
-              <div className="admin__gradient-picker">
-                {GRADIENT_PRESETS.map((preset) => (
-                  <button
-                    key={preset.label}
-                    className={`admin__gradient-swatch ${
-                      form.gradient === preset.value
-                        ? 'admin__gradient-swatch--active'
-                        : ''
-                    }`}
-                    style={{ background: preset.value }}
-                    onClick={() => updateField('gradient', preset.value)}
-                    title={preset.label}
-                  />
-                ))}
-              </div>
-              <input
-                value={form.gradient || ''}
-                onChange={(e) => updateField('gradient', e.target.value)}
-                className="admin__input admin__input--small"
-                placeholder="Custom CSS gradient..."
-              />
             </div>
 
             <div className="admin__field">

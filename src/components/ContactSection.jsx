@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
 import './ContactSection.css';
 
 const contactInfo = [
-  { icon: '📍', label: 'Address', value: '12, Stadium Road, Bankura, West Bengal – 722101' },
-  { icon: '📞', label: 'Phone', value: '+91 98300 00000' },
-  { icon: '📧', label: 'Email', value: 'hello@zicosports.in' },
-  { icon: '🕐', label: 'Store Hours', value: 'Mon–Sat · 10:00 AM – 8:00 PM' },
-  { icon: '💬', label: 'WhatsApp', value: 'Chat with our boot experts instantly' },
+  { icon: MapPin, label: 'Address', value: 'Doltala, Satighat, Bankura, 722101' },
+  { icon: Phone, label: 'Phone', value: '+91 7987461287' },
+  { icon: Mail, label: 'Email', value: 'hello@zicosports.in' },
+  { icon: Clock, label: 'Store Hours', value: 'Mon–Sat · 10:00 AM – 8:00 PM' },
+  { icon: MessageCircle, label: 'WhatsApp', value: 'Chat with our boot experts instantly' },
 ];
 
 /**
@@ -21,7 +22,11 @@ export default function ContactSection() {
   };
 
   const handleSubmit = () => {
-    if (form.name && form.email) setSent(true);
+    if (form.name && form.message) {
+      const msg = `Hi Zico Sports,\n\nI am ${form.name}.\n\nMessage: ${form.message}\n\nEmail: ${form.email}\nPhone: ${form.phone}`;
+      window.open(`https://wa.me/917987461287?text=${encodeURIComponent(msg)}`, '_blank');
+      setSent(true);
+    }
   };
 
   return (
@@ -38,9 +43,11 @@ export default function ContactSection() {
             on boots for your playing style? We're always here.
           </p>
           <div className="contact-details">
-            {contactInfo.map(({ icon, label, value }) => (
+            {contactInfo.map(({ icon: Icon, label, value }) => (
               <div key={label} className="contact-detail">
-                <div className="contact-detail__icon">{icon}</div>
+                <div className="contact-detail__icon">
+                  <Icon size={16} />
+                </div>
                 <div>
                   <div className="contact-detail__label">
                     {label.toUpperCase()}
@@ -50,13 +57,22 @@ export default function ContactSection() {
               </div>
             ))}
           </div>
+
+          {/* Order Note */}
+          <div className="contact-section__order-note">
+            <div className="contact-section__order-note-title">Online Orders</div>
+            <p>₹200 advance required for all online orders. Pay the rest on delivery.</p>
+            <p className="contact-section__order-note-highlight">Visit our store for exclusive in-store discounts!</p>
+          </div>
         </div>
 
         {/* Form Column */}
         <div className="contact-form-wrapper">
           {sent ? (
             <div className="contact-form__success">
-              <div className="contact-form__success-icon">✅</div>
+              <div className="contact-form__success-icon">
+                <MessageCircle size={40} />
+              </div>
               <h3 className="contact-form__success-title">Message Sent!</h3>
               <p className="contact-form__success-text">
                 We'll reply within 24 hours.
@@ -96,7 +112,7 @@ export default function ContactSection() {
                 />
               </div>
               <button className="contact-form__submit-btn" onClick={handleSubmit}>
-                SEND MESSAGE →
+                SEND MESSAGE
               </button>
             </>
           )}

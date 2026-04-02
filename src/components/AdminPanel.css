@@ -105,7 +105,7 @@
 }
 
 .admin__product {
-  background: #101010;
+  background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   padding: 12px 16px;
@@ -116,12 +116,12 @@
 }
 
 .admin__product--active {
-  background: #181818;
-  border-color: rgba(230, 60, 47, 0.2);
+  background: var(--bg-elevated);
+  border-color: rgba(230, 60, 47, 0.4);
 }
 
 .admin__product:hover {
-  background: #151515;
+  background: var(--bg-elevated);
 }
 
 .admin__product-thumb {
