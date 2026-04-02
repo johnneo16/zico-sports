@@ -1,0 +1,17 @@
+.stars-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stars-filled {
+  color: var(--accent-amber);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.stars-number {
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 600;
+}

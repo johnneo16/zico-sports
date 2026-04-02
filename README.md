@@ -1,16 +1,60 @@
-# React + Vite
+# ⚽ Zico Sports
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Bankura's Football Spikes Specialist** — Premium football boots e-commerce website with integrated admin panel.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + **Vite** — Fast dev experience
+- **Vanilla CSS** — Custom design system with CSS variables
+- **Google Fonts** — Inter + Playfair Display
 
-## React Compiler
+## 📁 Project Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```
+src/
+├── components/         # All UI components
+│   ├── Navbar.jsx      # Fixed nav with glassmorphism
+│   ├── HeroSection.jsx # Landing hero with CTA
+│   ├── BrandsSection.jsx
+│   ├── ShopSection.jsx # Product grid with filters
+│   ├── ProductCard.jsx # Individual product cards
+│   ├── ProductModal.jsx
+│   ├── CartDrawer.jsx  # Slide-in cart
+│   ├── SizeGuideSection.jsx
+│   ├── AboutSection.jsx
+│   ├── ContactSection.jsx
+│   ├── Footer.jsx
+│   ├── AdminPanel.jsx  # Product management
+│   ├── Logo.jsx
+│   └── Stars.jsx
+├── data/
+│   └── products.js     # Product catalog
+├── utils/
+│   └── format.js       # Price formatting
+├── constants.js        # Brands, surfaces, gradients
+├── App.jsx             # Root component
+├── index.css           # Global design system
+└── main.jsx            # Entry point
+```
 
-## Expanding the ESLint configuration
+## 🎨 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Dark premium e-commerce storefront
+- Product filtering by brand, surface, search
+- Sorting (price, rating, popularity)
+- Shopping cart with slide-in drawer
+- Product detail modals
+- Admin panel for product CRUD
+- Responsive design
+- Smooth animations & micro-interactions
+
+## 🛠 Development
+
+```bash
+npm install
+npm run dev
+```
+
+## 📄 License
+
+Private — Zico Sports © 2025

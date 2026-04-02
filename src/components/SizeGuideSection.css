@@ -1,0 +1,67 @@
+.size-guide {
+  background: var(--bg-tertiary);
+  padding: var(--section-padding);
+}
+
+.size-guide__container {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+.size-guide__header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Table */
+.size-guide__table {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.size-guide__thead {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: var(--bg-input);
+}
+
+.size-guide__th {
+  padding: 13px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--zico-red);
+  font-family: var(--font-mono);
+  letter-spacing: 2px;
+}
+
+.size-guide__tr {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border-default);
+  transition: background var(--transition-fast);
+}
+
+.size-guide__tr--alt {
+  background: rgba(255, 255, 255, 0.015);
+}
+
+.size-guide__tr:hover {
+  background: var(--zico-red-subtle);
+}
+
+.size-guide__td {
+  padding: 11px 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+.size-guide__tip {
+  text-align: center;
+  color: var(--text-ghost);
+  margin-top: 18px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}

@@ -1,0 +1,360 @@
+.admin {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+/* Header */
+.admin__header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-default);
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.admin__header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.admin__title {
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.admin__subtitle {
+  font-size: 9px;
+  color: var(--text-ghost);
+  letter-spacing: 2px;
+}
+
+.admin__saved-badge {
+  color: var(--accent-green);
+  font-size: 12px;
+  margin-left: 12px;
+  animation: fadeIn 0.3s ease;
+}
+
+.admin__header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.admin__add-btn {
+  background: var(--zico-red);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 9px 18px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  transition: all var(--transition-base);
+}
+
+.admin__add-btn:hover {
+  background: var(--zico-red-light);
+}
+
+.admin__exit-btn {
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-md);
+  padding: 9px 18px;
+  font-size: 12px;
+  transition: all var(--transition-base);
+}
+
+.admin__exit-btn:hover {
+  border-color: var(--text-ghost);
+  color: var(--text-secondary);
+}
+
+/* Content */
+.admin__content {
+  display: flex;
+}
+
+/* Product List */
+.admin__list {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  max-height: calc(100vh - 62px);
+}
+
+.admin__list-title {
+  font-size: 9px;
+  color: var(--text-invisible);
+  letter-spacing: 3px;
+  margin-bottom: 14px;
+}
+
+.admin__products {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.admin__product {
+  background: #101010;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all var(--transition-fast);
+}
+
+.admin__product--active {
+  background: #181818;
+  border-color: rgba(230, 60, 47, 0.2);
+}
+
+.admin__product:hover {
+  background: #151515;
+}
+
+.admin__product-thumb {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.admin__product-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.admin__product-name {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin__product-meta {
+  color: var(--text-ghost);
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+.admin__product-price {
+  color: var(--zico-red);
+  font-weight: 800;
+  font-size: 14px;
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+.admin__edit-btn {
+  background: var(--bg-input);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-size: 11px;
+  transition: all var(--transition-fast);
+}
+
+.admin__edit-btn:hover {
+  background: var(--border-strong);
+}
+
+.admin__delete-btn {
+  background: transparent;
+  color: var(--text-invisible);
+  border: none;
+  font-size: 15px;
+  transition: color var(--transition-fast);
+}
+
+.admin__delete-btn:hover {
+  color: var(--zico-red);
+}
+
+/* Editor Panel */
+@keyframes adminSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.admin__editor {
+  width: 380px;
+  background: var(--bg-tertiary);
+  border-left: 1px solid var(--border-subtle);
+  padding: 24px;
+  overflow-y: auto;
+  max-height: calc(100vh - 62px);
+  animation: adminSlideIn 0.3s ease;
+}
+
+.admin__editor-title {
+  font-size: 9px;
+  color: var(--zico-red);
+  letter-spacing: 3px;
+  margin-bottom: 18px;
+}
+
+/* Preview */
+.admin__editor-preview {
+  width: 100%;
+  height: 80px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.admin__editor-preview-emoji {
+  font-size: 36px;
+  animation: float 3s ease infinite;
+}
+
+/* Fields */
+.admin__field {
+  margin-bottom: 12px;
+}
+
+.admin__field--checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.admin__label {
+  font-size: 8px;
+  color: var(--text-ghost);
+  letter-spacing: 2px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.admin__input,
+.admin__select,
+.admin__textarea {
+  width: 100%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: 7px;
+  padding: 9px 12px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: var(--font-mono);
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.admin__input:focus,
+.admin__select:focus,
+.admin__textarea:focus {
+  border-color: var(--zico-red);
+}
+
+.admin__input--small {
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+.admin__textarea {
+  resize: vertical;
+}
+
+.admin__checkbox {
+  accent-color: var(--zico-red);
+  width: 16px;
+  height: 16px;
+}
+
+.admin__checkbox-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Gradient Picker */
+.admin__gradient-picker {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.admin__gradient-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.admin__gradient-swatch:hover {
+  transform: scale(1.15);
+}
+
+.admin__gradient-swatch--active {
+  border-color: #fff;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Editor Actions */
+.admin__editor-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.admin__save-btn {
+  flex: 1;
+  background: var(--zico-red);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  transition: all var(--transition-base);
+}
+
+.admin__save-btn:hover {
+  background: var(--zico-red-light);
+}
+
+.admin__cancel-btn {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 13px;
+  transition: all var(--transition-base);
+}
+
+.admin__cancel-btn:hover {
+  border-color: var(--text-ghost);
+}

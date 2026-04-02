@@ -1,0 +1,8 @@
+.zico-logo {
+  object-fit: contain;
+  transition: transform var(--transition-base);
+}
+
+.zico-logo:hover {
+  transform: scale(1.05);
+}
