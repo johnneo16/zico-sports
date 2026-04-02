@@ -276,8 +276,9 @@
 }
 
 .hero__stat-label {
-  font-size: 9px;
-  color: var(--text-ghost);
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-secondary);
   letter-spacing: 2px;
   margin-top: 4px;
   font-family: var(--font-mono);
