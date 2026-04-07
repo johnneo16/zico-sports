@@ -91,6 +91,38 @@
   cursor: pointer;
 }
 
+/* Controls row: sort + size guide */
+.shop-filters__controls-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.shop-filters__size-guide-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  background: var(--zico-red);
+  border: none;
+  border-radius: var(--radius-md);
+  color: #fff;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.shop-filters__size-guide-btn:hover {
+  background: var(--zico-red-light);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(201, 37, 24, 0.3);
+}
+
 /* Count */
 .shop-section__count {
   font-size: 11px;

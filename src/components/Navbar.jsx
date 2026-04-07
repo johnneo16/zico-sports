@@ -27,7 +27,6 @@ export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
     { id: 'shop-sec', label: 'Shop' },
     { id: 'brands-sec', label: 'Brands' },
     { id: 'why-us', label: 'Why Us' },
-    { id: 'size-guide', label: 'Sizes' },
     { id: 'about-sec', label: 'About' },
     { id: 'contact-sec', label: 'Contact' },
   ];
@@ -39,7 +38,7 @@ export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
           <Logo size={42} />
           <div className="navbar__brand-text">
             <div className="navbar__title">ZICO SPORTS</div>
-            <div className="navbar__subtitle">FOOTBALL SPIKES SPECIALIST</div>
+            <div className="navbar__subtitle">PLAY BEYOND LIMITS</div>
           </div>
         </div>
 

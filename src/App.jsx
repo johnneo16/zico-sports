@@ -4,7 +4,6 @@ import HeroSection from './components/HeroSection';
 import BrandsSection from './components/BrandsSection';
 import WhyChooseUs from './components/WhyChooseUs';
 import ShopSection from './components/ShopSection';
-import SizeGuideSection from './components/SizeGuideSection';
 import AboutSection from './components/AboutSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
@@ -93,7 +92,6 @@ export default function App() {
         onSelect={setSelected}
         onAddCart={addToCart}
       />
-      <SizeGuideSection />
       <AboutSection />
       <ContactSection />
       <Footer onAdminAccess={handleAdminAccess} />

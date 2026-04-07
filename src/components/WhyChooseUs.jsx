@@ -21,13 +21,13 @@ const reasons = [
   },
   {
     icon: RotateCcw,
-    title: '30-Day Easy Returns',
-    desc: "Didn't fit right? No questions asked. Send it back within 30 days for a full refund or exchange.",
+    title: 'Fast Pan-India Dispatch',
+    desc: 'Orders dispatched within 24 hours. Tracked shipping across all of India — your boots arrive game-ready and on time.',
   },
   {
     icon: Headphones,
-    title: 'Expert Boot Fitting',
-    desc: 'Call or WhatsApp us anytime. We\'ll help you find the perfect boot for your playing style, surface, and budget.',
+    title: 'WhatsApp-First Support',
+    desc: 'Chat directly with our team on WhatsApp. Get real-time sizing advice, stock updates, and order help — instantly.',
   },
   {
     icon: Shield,
@@ -85,11 +85,7 @@ export default function WhyChooseUs() {
             <span className="why-section__trust-number"><CountUp end={2018} duration={1500} /></span>
             <span className="why-section__trust-text">Serving Since</span>
           </div>
-          <div className="why-section__trust-divider" />
-          <div className="why-section__trust-item">
-            <span className="why-section__trust-number"><CountUp end={0} suffix="%" /></span>
-            <span className="why-section__trust-text">Fake Products</span>
-          </div>
+
         </div>
       </div>
     </section>

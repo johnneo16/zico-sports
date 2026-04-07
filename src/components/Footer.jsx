@@ -9,7 +9,7 @@ const footerLinks = [
   },
   {
     heading: 'Info',
-    links: ['About Us', 'Size Guide', 'Surface Guide', 'Shipping Policy', 'Return Policy', 'FAQ'],
+    links: ['About Us', 'Size Guide', 'Surface Guide', 'Shipping Policy', 'No Return Policy', 'FAQ'],
   },
   {
     heading: 'Connect',
@@ -31,7 +31,7 @@ export default function Footer({ onAdminAccess }) {
               <Logo size={44} />
               <div>
                 <div className="footer__brand-name">ZICO SPORTS</div>
-                <div className="footer__brand-sub">FOOTBALL SPIKES</div>
+                <div className="footer__brand-sub">PLAY BEYOND LIMITS</div>
               </div>
             </div>
             <p className="footer__brand-tagline">We believe in quality.</p>

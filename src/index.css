@@ -61,7 +61,8 @@
 
   /* Typography */
   --font-sans: 'Inter', -apple-system, sans-serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-serif: 'Oswald', 'Barlow Condensed', Impact, sans-serif;
+  --font-display: 'Barlow Condensed', 'Oswald', Impact, sans-serif;
   --font-mono: 'Inter', monospace;
 
   /* Special light mode vars */
@@ -173,17 +174,19 @@ img {
 }
 
 .section-title {
-  font-size: clamp(28px, 5vw, 42px);
-  font-weight: 900;
+  font-size: clamp(30px, 5vw, 46px);
+  font-weight: 700;
   color: var(--text-primary);
   font-family: var(--font-serif);
-  letter-spacing: -1px;
-  line-height: 1.1;
+  letter-spacing: 1px;
+  line-height: 1.05;
+  text-transform: uppercase;
 }
 
 .section-title em {
   color: var(--zico-red);
   font-style: italic;
+  font-family: var(--font-display);
 }
 
 /* ── KEYFRAME ANIMATIONS ── */

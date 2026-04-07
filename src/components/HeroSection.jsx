@@ -15,7 +15,7 @@ export default function HeroSection({ onShop }) {
     { icon: Star, value: '500+', label: 'Happy Players' },
     { icon: Shield, value: '8', label: 'Top Brands' },
     { icon: Truck, value: 'Free', label: 'Delivery ₹1500+' },
-    { icon: Zap, value: '30-Day', label: 'Easy Returns' },
+    { icon: Zap, value: 'No', label: 'Return Policy' },
   ];
 
   return (
