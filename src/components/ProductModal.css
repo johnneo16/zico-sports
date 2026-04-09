@@ -1,43 +1,48 @@
 .product-modal__overlay {
   position: fixed;
   inset: 0;
-  background: var(--overlay-bg);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 500;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  animation: fadeIn 0.2s ease;
+  animation: fadeIn 0.3s ease;
 }
 
 .product-modal {
-  background: var(--bg-card);
-  border: 1px solid var(--border-strong);
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-xl);
   max-width: 520px;
   width: 100%;
   overflow: hidden;
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9);
+  position: relative;
 }
 
 /* Hero */
 .product-modal__hero {
-  height: 260px;
-  background: var(--bg-studio-radial);
+  height: 280px;
+  background: linear-gradient(135deg, #111 0%, #000 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 12px;
   position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .product-modal__photo {
-  max-width: 75%;
-  max-height: 80%;
+  max-width: 80%;
+  max-height: 85%;
   object-fit: contain;
-  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
   animation: float 4s ease-in-out infinite;
+  z-index: 1;
 }
 
 .product-modal__emoji {
@@ -92,18 +97,20 @@
 }
 
 .product-modal__name {
-  margin: 0 0 8px;
-  font-size: 20px;
-  color: var(--text-primary);
+  margin: 0 0 12px;
+  font-size: 24px;
+  color: #fff;
   font-family: var(--font-serif);
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .product-modal__desc {
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin: 12px 0 18px;
-  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+  margin: 16px 0 24px;
+  font-size: 15px;
 }
 
 /* Actions Row */
@@ -111,33 +118,37 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .product-modal__pricing {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 10px;
 }
 
 .product-modal__price {
-  font-weight: 800;
-  font-size: 24px;
-  color: var(--text-primary);
+  font-weight: 900;
+  font-size: 28px;
+  color: #fff;
 }
 
 .product-modal__original-price {
-  font-size: 13px;
-  color: var(--text-ghost);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.3);
   text-decoration: line-through;
 }
 
 .product-modal__discount {
-  background: rgba(245, 158, 11, 0.12);
-  color: var(--accent-amber);
+  background: rgba(255, 62, 46, 0.1);
+  color: var(--zico-red-light);
   font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .product-modal__add-btn {

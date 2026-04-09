@@ -1,5 +1,4 @@
 import { ShoppingBag, ChevronDown, Zap, Shield, Truck, Star } from 'lucide-react';
-import { HeroFieldAnimation } from './SportsAnimations';
 import Logo from './Logo';
 import './HeroSection.css';
 
@@ -13,27 +12,17 @@ export default function HeroSection({ onShop }) {
 
   const stats = [
     { icon: Star, value: '500+', label: 'Happy Players' },
-    { icon: Shield, value: '8', label: 'Top Brands' },
+    { icon: Shield, value: '4', label: 'Top Brands' },
     { icon: Truck, value: 'Free', label: 'Delivery ₹1500+' },
-    { icon: Zap, value: 'No', label: 'Return Policy' },
+    { icon: Zap, value: 'Expert', label: 'Fitting Support' },
   ];
 
   return (
     <section className="hero">
-      {/* Animated Background */}
-      <div className="hero__bg-elements">
-        <div className="hero__orb hero__orb--1" />
-        <div className="hero__orb hero__orb--2" />
-        <div className="hero__orb hero__orb--3" />
-        <div className="hero__grid-overlay" />
+      <div className="hero__background-image">
+        <img src="/messi_full_bw.png" alt="Messi Background" className="hero__messi-img" />
+        <div className="hero__overlay-gradient" />
       </div>
-
-      <div className="hero__glow" />
-      <div className="hero__line" />
-
-      {/* Field Background */}
-      <HeroFieldAnimation />
-
       <div className="hero__content">
         <Logo size={110} className="hero__logo" />
 

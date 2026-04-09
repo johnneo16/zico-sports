@@ -14,11 +14,6 @@ const features = [
     desc: 'Free delivery above ₹1500. 2–5 day dispatch.',
   },
   {
-    icon: RotateCcw,
-    title: '30-Day Easy Returns',
-    desc: "Didn't fit? No problem. Full return, no questions.",
-  },
-  {
     icon: Phone,
     title: 'Boot Fitting Help',
     desc: "Call us at 7987461287 — we'll help you choose the right boot for your game.",
@@ -28,7 +23,7 @@ const features = [
 const stats = [
   { value: '2026', label: 'Founded' },
   { value: '500+', label: 'Customers' },
-  { value: '8', label: 'Brands' },
+  { value: '4', label: 'Brands' },
 ];
 
 /**
@@ -37,6 +32,10 @@ const stats = [
 export default function AboutSection() {
   return (
     <section id="about-sec" className="about-section">
+      <div className="about-section__bg">
+        <img src="/ronaldo_bw.png" alt="Ronaldo" className="about-section__ronaldo" />
+        <div className="about-section__overlay" />
+      </div>
       <div className="about-section__container">
         <div className="about-section__story">
           <div className="section-label">OUR STORY</div>

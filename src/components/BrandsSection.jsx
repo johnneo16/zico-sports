@@ -33,6 +33,10 @@ const brandList = [
 export default function BrandsSection() {
   return (
     <section id="brands-sec" className="brands-section">
+      <div className="brands-section__bg">
+        <img src="/stadium_lights_bw.png" alt="Stadium Lights" className="brands-section__lights" />
+        <div className="brands-section__overlay" />
+      </div>
       <div className="brands-section__container">
         <div className="brands-section__header">
           <div className="section-label">BRAND LINEUP</div>

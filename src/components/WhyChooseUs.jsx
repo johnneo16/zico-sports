@@ -42,7 +42,11 @@ const reasons = [
 export default function WhyChooseUs() {
   return (
     <section id="why-us" className="why-section">
-      <div className="why-section__container">
+      <div className="why-section__bg">
+        <img src="/mbappe_action_bw.png" alt="Mbappe" className="why-section__mbappe" />
+        <div className="why-section__overlay" />
+      </div>
+      <div className="why-section__container glass">
         <div className="why-section__header">
           <div className="section-label">WHY ZICO SPORTS</div>
           <h2 className="section-title">

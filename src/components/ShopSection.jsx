@@ -47,6 +47,10 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
 
   return (
     <section id="shop-sec" className="shop-section">
+      <div className="shop-section__bg">
+        <img src="/football_texture_bw.png" alt="Football Texture" className="shop-section__texture" />
+        <div className="shop-section__overlay" />
+      </div>
       <div className="shop-section__container">
         <div className="shop-section__header">
           <div className="section-label">THE COLLECTION</div>

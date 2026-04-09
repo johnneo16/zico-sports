@@ -1,26 +1,30 @@
 .product-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
   position: relative;
-  transition: all var(--transition-spring);
+  transition: all var(--transition-base);
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  box-shadow: var(--glass-shadow);
 }
 
 .product-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  border-color: var(--zico-red);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 20px rgba(230, 60, 47, 0.1);
+  transform: translateY(-10px);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
   z-index: 10;
 }
 
 /* Image Area */
 .product-card__image {
   aspect-ratio: 1;
-  background: var(--bg-studio-radial);
+  background: linear-gradient(135deg, #111 0%, #000 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,11 +36,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    transparent 60%,
-    rgba(0, 0, 0, 0.2) 100%
-  );
+  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
   pointer-events: none;
 }
 
@@ -106,17 +106,18 @@
 
 .product-card__name {
   font-weight: 700;
-  font-size: 14px;
-  color: var(--text-primary);
+  font-size: 15px;
+  color: #fff;
   margin-bottom: 6px;
   line-height: 1.3;
 }
 
 .product-card__meta {
   font-size: 11px;
-  color: var(--text-ghost);
+  color: rgba(255, 255, 255, 0.4);
   margin-top: 2px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
 }
 
 /* Footer */
@@ -125,23 +126,25 @@
   align-items: center;
   justify-content: space-between;
   margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .product-card__pricing {
   display: flex;
   align-items: baseline;
-  gap: 6px;
+  gap: 8px;
 }
 
 .product-card__price {
   font-weight: 800;
-  font-size: 17px;
-  color: var(--text-primary);
+  font-size: 18px;
+  color: #fff;
 }
 
 .product-card__original-price {
   font-size: 11px;
-  color: var(--text-ghost);
+  color: rgba(255, 255, 255, 0.3);
   text-decoration: line-through;
 }
 

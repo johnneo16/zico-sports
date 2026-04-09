@@ -9,7 +9,7 @@ const footerLinks = [
   },
   {
     heading: 'Info',
-    links: ['About Us', 'Size Guide', 'Surface Guide', 'Shipping Policy', 'Return Policy', 'FAQ'],
+    links: ['About Us', 'Size Guide', 'Surface Guide', 'Shipping Policy', 'FAQ'],
   },
   {
     heading: 'Connect',
