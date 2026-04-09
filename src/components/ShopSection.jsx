@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { Search } from 'lucide-react';
+import { Ruler } from 'lucide-react';
 import ProductCard from './ProductCard';
+import SizeGuideModal from './SizeGuideModal';
 import { BRANDS, SURFACES } from '../constants';
 import './ShopSection.css';
 
 /**
- * Main shop section with filters, search, and product grid.
+ * Main shop section with filters, search, size guide modal, and product grid.
  */
 export default function ShopSection({ products, onSelect, onAddCart }) {
   const [brand, setBrand] = useState('All');
@@ -13,6 +14,7 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
   const [sort, setSort] = useState('popular');
   const [search, setSearch] = useState('');
   const [showFilters, setShowFilters] = useState(false);
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
 
   const clearFilters = () => {
     setBrand('All');
@@ -21,6 +23,7 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
   };
 
   let filtered = products.filter((p) => {
+    if (!['Nike', 'Adidas', 'Puma', 'Mizuno'].includes(p.brand)) return false;
     if (brand !== 'All' && p.brand !== brand) return false;
     if (surface !== 'All Surfaces' && !p.surface.includes(surface))
       return false;
@@ -86,16 +89,29 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
               </button>
             ))}
           </div>
-          <select
-            className="shop-filters__sort"
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-          >
-            <option value="popular">Most Popular</option>
-            <option value="rating">Top Rated</option>
-            <option value="price-asc">Price ↑</option>
-            <option value="price-desc">Price ↓</option>
-          </select>
+          <div className="shop-filters__controls-row">
+            <select
+              className="shop-filters__sort"
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+            >
+              <option value="popular">Most Popular</option>
+              <option value="rating">Top Rated</option>
+              <option value="price-asc">Price ↑</option>
+              <option value="price-desc">Price ↓</option>
+            </select>
+
+            {/* Size Guide Button */}
+            <button
+              id="size-guide-btn"
+              className="shop-filters__size-guide-btn"
+              onClick={() => setSizeGuideOpen(true)}
+              title="View Size Guide"
+            >
+              <Ruler size={15} />
+              SIZE GUIDE
+            </button>
+          </div>
         </div>
 
         <div className="shop-section__count">
@@ -133,6 +149,13 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
         </div>
 
       </div>
+
+      {/* Size Guide Modal */}
+      {sizeGuideOpen && (
+        <SizeGuideModal onClose={() => setSizeGuideOpen(false)} />
+      )}
     </section>
   );
 }
+
+

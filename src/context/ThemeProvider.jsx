@@ -8,7 +8,7 @@ const ThemeContext = createContext();
  */
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('zico_theme') || 'dark';
+    return localStorage.getItem('zico_theme') || 'light';
   });
 
   useEffect(() => {

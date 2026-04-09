@@ -47,21 +47,20 @@
 }
 
 .about-section__stat-value {
-  font-size: 32px;
+  font-size: 38px;
   font-weight: 900;
-  background: linear-gradient(135deg, #ffffff, #9ca3af);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-family: var(--font-mono);
-  margin-bottom: 4px;
+  color: var(--text-primary);
+  font-family: var(--font-sans), sans-serif;
+  margin-bottom: 2px;
 }
 
 .about-section__stat-label {
-  font-size: 9px;
-  color: var(--text-ghost);
+  font-size: 11px;
+  color: var(--zico-red);
   letter-spacing: 2px;
-  font-family: var(--font-mono);
+  font-weight: 700;
+  font-family: var(--font-sans), sans-serif;
+  text-transform: uppercase;
 }
 
 /* Features */

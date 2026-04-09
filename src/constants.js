@@ -7,11 +7,7 @@ export const BRANDS = [
   'Nike',
   'Adidas',
   'Puma',
-  'Under Armour',
-  'New Balance',
   'Mizuno',
-  'Asics',
-  'Umbro',
 ];
 
 export const SURFACES = ['All Surfaces', 'FG', 'AG', 'FG/AG', 'SG'];
