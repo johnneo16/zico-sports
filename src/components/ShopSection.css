@@ -38,6 +38,50 @@
   margin-bottom: 40px;
 }
 
+.shop-categories {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+  margin-bottom: 40px;
+}
+
+.shop-categories__btn {
+  padding: 14px 40px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-transform: uppercase;
+}
+
+.shop-categories__btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 1, 0.3);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.shop-categories__btn--active {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.25);
+}
+
+.shop-categories__btn--active:hover {
+  background: #fff;
+  color: #000;
+  transform: none;
+}
+
 /* ────────────────────────────────────────────
    FILTER BAR — 2 clean rows
 ──────────────────────────────────────────── */

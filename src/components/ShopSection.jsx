@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { Ruler, Search } from 'lucide-react';
 import ProductCard from './ProductCard';
 import SizeGuideModal from './SizeGuideModal';
-import { BRANDS, SURFACES } from '../constants';
+import { BRANDS, SURFACES, CATEGORIES } from '../constants';
 import './ShopSection.css';
 
 export default function ShopSection({ products, onSelect, onAddCart }) {
   const [brand, setBrand] = useState('All');
+  const [category, setCategory] = useState('Boots');
   const [surface, setSurface] = useState('All Surfaces');
   const [sort, setSort] = useState('popular');
   const [search, setSearch] = useState('');
@@ -19,15 +20,23 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
   };
 
   let filtered = products.filter((p) => {
-    if (!['Nike', 'Adidas', 'Puma', 'Mizuno'].includes(p.brand)) return false;
+    // 1. Category Filter
+    if (p.category !== category) return false;
+
+    // 2. Brand Filter
     if (brand !== 'All' && p.brand !== brand) return false;
-    if (surface !== 'All Surfaces' && !p.surface.includes(surface)) return false;
+
+    // 3. Surface Filter (Boots only)
+    if (category === 'Boots' && surface !== 'All Surfaces' && !p.surface.includes(surface)) return false;
+
+    // 4. Search Filter
     if (
       search &&
       !p.name.toLowerCase().includes(search.toLowerCase()) &&
       !p.brand.toLowerCase().includes(search.toLowerCase())
     )
       return false;
+
     return true;
   });
 
@@ -53,8 +62,25 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
         <div className="shop-section__header">
           <div className="section-label">THE COLLECTION</div>
           <h2 className="section-title">
-            Football <em>Spikes</em>
+            Football <em>{category}</em>
           </h2>
+        </div>
+
+        {/* ── Category Switcher ── */}
+        <div className="shop-categories">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              className={`shop-categories__btn ${category === cat ? 'shop-categories__btn--active' : ''}`}
+              onClick={() => {
+                setCategory(cat);
+                setBrand('All');
+                setSurface('All Surfaces');
+              }}
+            >
+              {cat.toUpperCase()}
+            </button>
+          ))}
         </div>
 
         {/* ── Compact Filter Bar ── */}
@@ -67,8 +93,8 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
                 className="shop-filters__search"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search boots..."
-                aria-label="Search boots"
+                placeholder="Search gear..."
+                aria-label="Search gear"
               />
             </div>
 
@@ -109,9 +135,11 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
               </button>
             ))}
 
-            <div className="shop-filters__pill-sep" aria-hidden="true" />
+            {brand !== 'All' && (
+              <div className="shop-filters__pill-sep" aria-hidden="true" />
+            )}
 
-            {SURFACES.map((s) => (
+            {category === 'Boots' && SURFACES.map((s) => (
               <button
                 key={s}
                 className={`shop-filters__pill shop-filters__pill--surface ${surface === s ? 'shop-filters__pill--active' : ''}`}
@@ -126,7 +154,7 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
 
         {/* Count + clear */}
         <div className="shop-section__count">
-          <span>{filtered.length} BOOTS FOUND</span>
+          <span>{filtered.length} {category.toUpperCase()} FOUND</span>
           {hasFilters && (
             <button className="shop-section__clear-btn" onClick={clearFilters}>
               CLEAR ALL
@@ -148,7 +176,7 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
           ) : (
             <div className="shop-grid__empty">
               <div className="shop-grid__empty-icon">👟</div>
-              <h3 className="shop-grid__empty-title">No Boots Found</h3>
+              <h3 className="shop-grid__empty-title">No {category} Found</h3>
               <p className="shop-grid__empty-text">
                 Try adjusting your filters or search terms.
               </p>

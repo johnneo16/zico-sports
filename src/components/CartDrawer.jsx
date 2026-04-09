@@ -37,7 +37,7 @@ export default function CartDrawer({ cart, onClose, onRemove }) {
           <div className="cart-drawer__empty">
             <ShoppingBag size={40} className="cart-drawer__empty-icon" />
             <p>Your cart is empty</p>
-            <span>Add some boots to get started!</span>
+            <span>Add some items to get started!</span>
           </div>
         ) : (
           <>

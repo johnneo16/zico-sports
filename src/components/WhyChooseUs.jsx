@@ -7,12 +7,12 @@ const reasons = [
   {
     icon: Award,
     title: 'Premium Quality Only',
-    desc: 'Every boot is 100% authentic. Sourced directly from authorized distributors — no replicas, no compromises.',
+    desc: 'Every item is 100% authentic. Sourced directly from authorized distributors — no replicas, no compromises.',
   },
   {
     icon: BadgeCheck,
     title: 'Tested by Real Players',
-    desc: 'Our ex-footballer team tests every boot on real pitches before we stock it. We recommend what we actually play in.',
+    desc: 'Our ex-footballer team tests every piece of gear on real pitches before we stock it. We recommend what we actually play in.',
   },
   {
     icon: Truck,
@@ -22,7 +22,7 @@ const reasons = [
   {
     icon: RotateCcw,
     title: 'Fast Dispatch',
-    desc: 'Orders dispatched within 24 hours. Fully tracked shipping — your boots arrive game-ready.',
+    desc: 'Orders dispatched within 24 hours. Fully tracked shipping — your order arrives game-ready.',
   },
   {
     icon: Headphones,

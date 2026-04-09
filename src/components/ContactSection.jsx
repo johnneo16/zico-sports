@@ -8,7 +8,7 @@ const contactInfo = [
   { icon: Phone,         label: 'Phone',       value: '+91 7987461287', href: 'tel:+917987461287' },
   { icon: Mail,          label: 'Email',       value: 'zicosports.bqa@gmail.com', href: 'mailto:zicosports.bqa@gmail.com' },
   { icon: Clock,         label: 'Store Hours', value: 'Mon–Sat · 10:00 AM – 8:00 PM', href: null },
-  { icon: MessageCircle, label: 'WhatsApp',    value: 'Chat with our boot experts', href: 'https://wa.me/917987461287' },
+  { icon: MessageCircle, label: 'WhatsApp',    value: 'Chat with our equipment experts', href: 'https://wa.me/917987461287' },
 ];
 
 export default function ContactSection() {
@@ -43,8 +43,8 @@ export default function ContactSection() {
             Get in <em>Touch</em>
           </h2>
           <p className="contact-section__intro">
-            Not sure which boot to buy? Need to check stock? Want expert advice
-            on boots for your playing style? We're always here.
+            Not sure what to buy? Need to check stock? Want expert advice
+            on the best gear for your playing style? We're always here.
           </p>
 
           <address className="contact-details">
@@ -111,7 +111,7 @@ export default function ContactSection() {
               ))}
               <div className="contact-form__field">
                 <textarea
-                  placeholder="Your message or boot query..."
+                  placeholder="Your message or gear query..."
                   rows={4}
                   value={form.message}
                   onChange={(e) => updateField('message', e.target.value)}

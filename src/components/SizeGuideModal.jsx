@@ -2,8 +2,7 @@ import { useEffect } from 'react';
 import { X, Ruler, Info } from 'lucide-react';
 import './SizeGuideModal.css';
 
-const sizes = [
-  ['UK 6', 'EU 39', 'US 7', '24.5 cm'],
+const bootSizes = [
   ['UK 7', 'EU 41', 'US 8', '25.5 cm'],
   ['UK 7.5', 'EU 41.5', 'US 8.5', '26.0 cm'],
   ['UK 8', 'EU 42', 'US 9', '26.5 cm'],
@@ -11,8 +10,14 @@ const sizes = [
   ['UK 9', 'EU 43', 'US 10', '27.5 cm'],
   ['UK 9.5', 'EU 44', 'US 10.5', '28.0 cm'],
   ['UK 10', 'EU 44.5', 'US 11', '28.5 cm'],
-  ['UK 10.5', 'EU 45', 'US 11.5', '29.0 cm'],
-  ['UK 11', 'EU 46', 'US 12', '29.5 cm'],
+];
+
+const jerseySizes = [
+  ['S', '36 - 38', '27'],
+  ['M', '38 - 40', '28'],
+  ['L', '40 - 42', '29'],
+  ['XL', '42 - 44', '30'],
+  ['XXL', '44 - 46', '31'],
 ];
 
 /**
@@ -54,23 +59,45 @@ export default function SizeGuideModal({ onClose }) {
         </div>
 
         <p className="sg-modal__subtitle">
-          Measurements are approximate. Use foot length for the best fit!
+          Find the perfect fit for your footwear and apparel.
         </p>
 
-        {/* Table */}
-        <div className="sg-modal__table">
-          <div className="sg-modal__thead">
-            {['UK', 'EU', 'US', 'Foot Length'].map((h) => (
-              <div key={h} className="sg-modal__th">{h.toUpperCase()}</div>
-            ))}
-          </div>
-          {sizes.map((row, i) => (
-            <div key={i} className={`sg-modal__tr ${i % 2 !== 0 ? 'sg-modal__tr--alt' : ''}`}>
-              {row.map((cell, j) => (
-                <div key={j} className="sg-modal__td">{cell}</div>
+        <div className="sg-modal__layout">
+          <div className="sg-modal__group">
+            <h3 className="sg-modal__label">FOOTWEAR</h3>
+            <div className="sg-modal__table">
+              <div className="sg-modal__thead">
+                {['UK', 'EU', 'US', 'Length'].map((h) => (
+                  <div key={h} className="sg-modal__th">{h}</div>
+                ))}
+              </div>
+              {bootSizes.map((row, i) => (
+                <div key={i} className={`sg-modal__tr ${i % 2 !== 0 ? 'sg-modal__tr--alt' : ''}`}>
+                  {row.map((cell, j) => (
+                    <div key={j} className="sg-modal__td">{cell}</div>
+                  ))}
+                </div>
               ))}
             </div>
-          ))}
+          </div>
+
+          <div className="sg-modal__group">
+            <h3 className="sg-modal__label">JERSEYS</h3>
+            <div className="sg-modal__table">
+              <div className="sg-modal__thead">
+                {['SIZE', 'CHEST', 'LEN'].map((h) => (
+                  <div key={h} className="sg-modal__th">{h}</div>
+                ))}
+              </div>
+              {jerseySizes.map((row, i) => (
+                <div key={i} className={`sg-modal__tr ${i % 2 !== 0 ? 'sg-modal__tr--alt' : ''}`}>
+                  {row.map((cell, j) => (
+                    <div key={j} className="sg-modal__td">{cell}</div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Pro Tip Banner */}
@@ -81,8 +108,7 @@ export default function SizeGuideModal({ onClose }) {
           <div className="sg-modal__banner-content">
             <h4 className="sg-modal__banner-title">PRO TIP: PERFECT FIT</h4>
             <p className="sg-modal__banner-text">
-              Football boots typically run slightly tighter than standard shoes.
-              Order half a size up for maximum comfort during play!
+              Performance gear runs athletic. For boots, order half a size up. For jerseys, if between sizes, choose the larger for a relaxed fit.
             </p>
           </div>
         </div>

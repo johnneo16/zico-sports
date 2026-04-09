@@ -17,12 +17,16 @@ export default function ProductModal({ product, onClose, onAddCart }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="product-modal__hero">
-          {product.image ? (
-            <img src={product.image} alt={product.name} className="product-modal__photo" loading="lazy" />
-          ) : (
-            <span className="product-modal__emoji">{product.emoji || '👟'}</span>
-          )}
-          <div className="product-modal__surface">{product.surface}</div>
+          <div className="product-modal__hero-overlay">
+            {product.image ? (
+              <img src={product.image} alt={product.name} className="product-modal__photo" loading="lazy" />
+            ) : (
+              <span className="product-modal__emoji">{product.emoji || '👟'}</span>
+            )}
+            {product.category === 'Boots' && (
+              <div className="product-modal__surface">{product.surface}</div>
+            )}
+          </div>
           <button className="product-modal__close" onClick={onClose}>
             <X size={16} />
           </button>
@@ -30,11 +34,24 @@ export default function ProductModal({ product, onClose, onAddCart }) {
 
         <div className="product-modal__body">
           <div className="product-modal__brand">
-            {product.brand.toUpperCase()}
+            {product.brand.toUpperCase()} · {product.category.toUpperCase()}
           </div>
           <h2 className="product-modal__name">{product.name}</h2>
           <Stars rating={product.rating} />
-          <p className="product-modal__desc">{product.description}</p>
+          
+          <div className="product-modal__desc-wrap">
+             <p className="product-modal__desc">{product.description}</p>
+          </div>
+
+          <div className="product-modal__size-selector">
+            <span className="product-modal__size-label">SELECT SIZE</span>
+            <div className="product-modal__sizes">
+              {product.category === 'Jerseys' 
+                ? ['S', 'M', 'L', 'XL', 'XXL'].map(s => <button key={s} className="product-modal__size-btn">{s}</button>)
+                : ['7.5', '8.5', '9.5', '10.5', '11.5'].map(s => <button key={s} className="product-modal__size-btn">{s}</button>)
+              }
+            </div>
+          </div>
 
           <div className="product-modal__actions">
             <div className="product-modal__pricing">

@@ -3,20 +3,27 @@
   padding: var(--section-padding);
 }
 
+/* Tables Layout */
 .size-guide__container {
-  max-width: 780px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
-.size-guide__header {
-  text-align: center;
+.size-guide__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
   margin-bottom: 40px;
 }
 
-.size-guide__subtitle {
-  color: var(--text-muted);
-  font-size: 14px;
-  margin-top: 10px;
+.size-guide__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--zico-red);
+  margin-bottom: 16px;
+  text-align: center;
+  opacity: 0.8;
 }
 
 /* Table */
@@ -26,13 +33,23 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  margin-bottom: 30px;
+  height: fit-content;
 }
 
 .size-guide__thead {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   background: var(--bg-input);
+}
+
+/* Generic column handling */
+.size-guide__group:nth-child(1) .size-guide__thead,
+.size-guide__group:nth-child(1) .size-guide__tr {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.size-guide__group:nth-child(2) .size-guide__thead,
+.size-guide__group:nth-child(2) .size-guide__tr {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .size-guide__th {
@@ -42,11 +59,11 @@
   color: var(--zico-red);
   font-family: var(--font-mono);
   letter-spacing: 2px;
+  text-align: center;
 }
 
 .size-guide__tr {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--border-default);
   transition: all var(--transition-base);
 }
@@ -57,11 +74,9 @@
 
 .size-guide__tr:hover {
   background: var(--bg-input);
-  transform: scale(1.01);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transform: translateX(4px);
   z-index: 2;
   position: relative;
-  border-radius: 8px;
 }
 
 .size-guide__td {

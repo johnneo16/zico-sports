@@ -10,6 +10,8 @@ export const BRANDS = [
   'Mizuno',
 ];
 
+export const CATEGORIES = ['Boots', 'Jerseys'];
+
 export const SURFACES = ['All Surfaces', 'FG', 'AG', 'FG/AG', 'SG'];
 
 export const SURFACE_OPTIONS = ['FG', 'AG', 'FG/AG', 'SG', 'TF', 'IN'];

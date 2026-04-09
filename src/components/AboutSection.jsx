@@ -7,7 +7,7 @@ const features = [
   {
     icon: Trophy,
     title: 'Expert Curation',
-    desc: 'Every boot tested by real players, not just influencers.',
+    desc: 'Every item tested by real players, not just influencers.',
   },
   {
     icon: Truck,
@@ -16,8 +16,8 @@ const features = [
   },
   {
     icon: Phone,
-    title: 'Boot Fitting Help',
-    desc: "Call us at 7987461287 — we'll help you choose the right boot for your game.",
+    title: 'Gear Fitting Help',
+    desc: "Call us at 7987461287 — we'll help you choose the right gear for your game.",
   },
 ];
 
@@ -54,14 +54,14 @@ export default function AboutSection() {
           </h2>
           <p className="about-section__text">
             Zico Sports was founded in 2026 by ex-footballers who were tired of
-            settling for overpriced boots with no real expertise behind the
-            recommendation. We are Bankura's only dedicated football spikes
-            specialist.
+            settling for overpriced gear with no real expertise behind the
+            recommendation. We are Bankura's only dedicated elite football
+            equipment specialist.
           </p>
           <p className="about-section__text">
-            Every boot in our store has been worn, tested, and approved on real
+            Every item in our store has been worn, tested, and approved on real
             grass, artificial turf, and every surface in between. We give real
-            advice — because we've played in the same boots.
+            advice — because we've played in the same gear.
           </p>
           <p className="about-section__tagline">We believe in quality.</p>
           <div className="about-section__stats">

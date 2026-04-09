@@ -41,7 +41,7 @@ export default function HeroSection({ onShop }) {
       <div className="hero__background-image">
         <img
           ref={bgRef}
-          src="/messi_full_bw.png"
+          src="/messi_hero_16_9.png"
           alt=""
           aria-hidden="true"
           className="hero__messi-img"
@@ -54,7 +54,7 @@ export default function HeroSection({ onShop }) {
 
         <div className="hero__badge">
           <span className="hero__badge-dot" />
-          BANKURA'S FOOTBALL BOOT SPECIALIST · EST. 2026
+          BANKURA'S ELITE FOOTBALL GEAR SPECIALIST · EST. 2026
         </div>
 
         <h1 className="hero__title">
@@ -64,7 +64,7 @@ export default function HeroSection({ onShop }) {
         <p className="hero__tagline">We believe in quality.</p>
 
         <p className="hero__subtitle">
-          Premium football spikes from Nike, Adidas, Puma and more. Expert
+          Premium football gear from Nike, Adidas, Puma and more. Expert
           guidance from real footballers. Real opinions.
         </p>
 
@@ -82,7 +82,7 @@ export default function HeroSection({ onShop }) {
         <div className="hero__actions">
           <button className="hero__cta hero__cta--primary" onClick={onShop}>
             <ShoppingBag size={18} aria-hidden="true" />
-            SHOP BOOTS
+            EXPLORE GEAR
           </button>
           <button className="hero__cta hero__cta--secondary" onClick={scrollToAbout}>
             OUR STORY
