@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Logo from './Logo';
 import { BRANDS, SURFACE_OPTIONS } from '../constants';
 import { formatPrice } from '../utils/format';
@@ -15,6 +15,21 @@ export default function AdminPanel({ products, setProducts, onExit }) {
   const [form, setForm] = useState({});
   const [saved, setSaved] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Always fetch fresh products directly from Supabase when admin panel opens
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .order('id', { ascending: true });
+      if (!error && data) setProducts(data);
+      setLoading(false);
+    };
+    fetchProducts();
+  }, []);
 
   const startEdit = (product) => {
     setEditing(product.id);
@@ -158,7 +173,7 @@ export default function AdminPanel({ products, setProducts, onExit }) {
         {/* Product List */}
         <div className="admin__list">
           <div className="admin__list-title">
-            ALL PRODUCTS ({products.length})
+            {loading ? 'LOADING PRODUCTS…' : `ALL PRODUCTS (${products.length})`}
           </div>
           <div className="admin__products">
             {products.map((p) => (
