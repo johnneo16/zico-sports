@@ -1,3 +1,4 @@
+import useScrollReveal from '../hooks/useScrollReveal';
 import './BrandsSection.css';
 
 const brandList = [
@@ -27,14 +28,23 @@ const brandList = [
   },
 ];
 
-/**
- * Brand showcase grid with real logos.
- */
 export default function BrandsSection() {
+  const sectionRef = useScrollReveal();
+
   return (
-    <section id="brands-sec" className="brands-section">
+    <section id="brands-sec" className="brands-section" ref={sectionRef}>
+      <div className="brands-section__bg">
+        <img
+          src="/stadium_lights_bw.png"
+          alt=""
+          aria-hidden="true"
+          className="brands-section__lights"
+        />
+        <div className="brands-section__overlay" />
+      </div>
+
       <div className="brands-section__container">
-        <div className="brands-section__header">
+        <div className="brands-section__header reveal">
           <div className="section-label">BRAND LINEUP</div>
           <h2 className="section-title">
             World-Class <em>Brands</em>
@@ -43,9 +53,13 @@ export default function BrandsSection() {
             Only authentic, official products. We partner with the best in football.
           </p>
         </div>
+
         <div className="brands-grid">
-          {brandList.map((brand) => (
-            <div key={brand.name} className="brand-card">
+          {brandList.map((brand, i) => (
+            <div
+              key={brand.name}
+              className={`brand-card reveal reveal--scale reveal--delay-${i + 1}`}
+            >
               <div className="brand-card__logo-wrapper">
                 <img
                   src={brand.logo}
@@ -59,9 +73,13 @@ export default function BrandsSection() {
                 />
                 <div
                   className="brand-card__fallback"
-                  style={{ background: brand.color + '15', color: brand.color, display: 'none' }}
+                  style={{
+                    background: brand.color + '15',
+                    color: brand.color,
+                    display: 'none',
+                  }}
                 >
-                  {brand.name.split(' ').map(w => w[0]).join('')}
+                  {brand.name.split(' ').map((w) => w[0]).join('')}
                 </div>
               </div>
               <div className="brand-card__name">{brand.name}</div>

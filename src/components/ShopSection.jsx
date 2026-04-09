@@ -1,19 +1,15 @@
 import { useState } from 'react';
-import { Ruler } from 'lucide-react';
+import { Ruler, Search } from 'lucide-react';
 import ProductCard from './ProductCard';
 import SizeGuideModal from './SizeGuideModal';
 import { BRANDS, SURFACES } from '../constants';
 import './ShopSection.css';
 
-/**
- * Main shop section with filters, search, size guide modal, and product grid.
- */
 export default function ShopSection({ products, onSelect, onAddCart }) {
   const [brand, setBrand] = useState('All');
   const [surface, setSurface] = useState('All Surfaces');
   const [sort, setSort] = useState('popular');
   const [search, setSearch] = useState('');
-  const [showFilters, setShowFilters] = useState(false);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
 
   const clearFilters = () => {
@@ -25,8 +21,7 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
   let filtered = products.filter((p) => {
     if (!['Nike', 'Adidas', 'Puma', 'Mizuno'].includes(p.brand)) return false;
     if (brand !== 'All' && p.brand !== brand) return false;
-    if (surface !== 'All Surfaces' && !p.surface.includes(surface))
-      return false;
+    if (surface !== 'All Surfaces' && !p.surface.includes(surface)) return false;
     if (
       search &&
       !p.name.toLowerCase().includes(search.toLowerCase()) &&
@@ -45,8 +40,15 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
   else if (sort === 'rating')
     filtered = [...filtered].sort((a, b) => b.rating - a.rating);
 
+  const hasFilters = brand !== 'All' || surface !== 'All Surfaces' || search;
+
   return (
     <section id="shop-sec" className="shop-section">
+      <div className="shop-section__bg">
+        <img src="/football_texture_bw.png" alt="" aria-hidden="true" className="shop-section__texture" />
+        <div className="shop-section__overlay" />
+      </div>
+
       <div className="shop-section__container">
         <div className="shop-section__header">
           <div className="section-label">THE COLLECTION</div>
@@ -55,68 +57,77 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
           </h2>
         </div>
 
-        {/* Filters Bar */}
+        {/* ── Compact Filter Bar ── */}
         <div className="shop-filters">
-          <input
-            className="shop-filters__search"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="🔍  Search boots..."
-          />
-          <div className="shop-filters__pills">
+          {/* Row 1: Search + Sort + Size Guide */}
+          <div className="shop-filters__top">
+            <div className="shop-filters__search-wrap">
+              <Search size={15} className="shop-filters__search-icon" aria-hidden="true" />
+              <input
+                className="shop-filters__search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search boots..."
+                aria-label="Search boots"
+              />
+            </div>
+
+            <div className="shop-filters__actions">
+              <select
+                className="shop-filters__sort"
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+                aria-label="Sort products"
+              >
+                <option value="popular">Popular</option>
+                <option value="rating">Top Rated</option>
+                <option value="price-asc">Price ↑</option>
+                <option value="price-desc">Price ↓</option>
+              </select>
+
+              <button
+                className="shop-filters__size-guide-btn"
+                onClick={() => setSizeGuideOpen(true)}
+                aria-label="View Size Guide"
+              >
+                <Ruler size={13} aria-hidden="true" />
+                <span>SIZE GUIDE</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Row 2: Brand pills + divider + Surface pills — all scrollable */}
+          <div className="shop-filters__pills-row" role="group" aria-label="Filter by brand and surface">
             {BRANDS.map((b) => (
               <button
                 key={b}
-                className={`shop-filters__pill ${
-                  brand === b ? 'shop-filters__pill--active' : ''
-                }`}
+                className={`shop-filters__pill ${brand === b ? 'shop-filters__pill--active' : ''}`}
                 onClick={() => setBrand(b)}
+                aria-pressed={brand === b}
               >
                 {b}
               </button>
             ))}
-          </div>
-          <div className="shop-filters__pills">
+
+            <div className="shop-filters__pill-sep" aria-hidden="true" />
+
             {SURFACES.map((s) => (
               <button
                 key={s}
-                className={`shop-filters__pill shop-filters__pill--surface ${
-                  surface === s ? 'shop-filters__pill--surface-active' : ''
-                }`}
+                className={`shop-filters__pill shop-filters__pill--surface ${surface === s ? 'shop-filters__pill--active' : ''}`}
                 onClick={() => setSurface(s)}
+                aria-pressed={surface === s}
               >
                 {s}
               </button>
             ))}
           </div>
-          <div className="shop-filters__controls-row">
-            <select
-              className="shop-filters__sort"
-              value={sort}
-              onChange={(e) => setSort(e.target.value)}
-            >
-              <option value="popular">Most Popular</option>
-              <option value="rating">Top Rated</option>
-              <option value="price-asc">Price ↑</option>
-              <option value="price-desc">Price ↓</option>
-            </select>
-
-            {/* Size Guide Button */}
-            <button
-              id="size-guide-btn"
-              className="shop-filters__size-guide-btn"
-              onClick={() => setSizeGuideOpen(true)}
-              title="View Size Guide"
-            >
-              <Ruler size={15} />
-              SIZE GUIDE
-            </button>
-          </div>
         </div>
 
+        {/* Count + clear */}
         <div className="shop-section__count">
-          {filtered.length} BOOTS FOUND
-          {(brand !== 'All' || surface !== 'All Surfaces' || search) && (
+          <span>{filtered.length} BOOTS FOUND</span>
+          {hasFilters && (
             <button className="shop-section__clear-btn" onClick={clearFilters}>
               CLEAR ALL
             </button>
@@ -139,7 +150,7 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
               <div className="shop-grid__empty-icon">👟</div>
               <h3 className="shop-grid__empty-title">No Boots Found</h3>
               <p className="shop-grid__empty-text">
-                Try adjusting your filters or search terms to find what you're looking for.
+                Try adjusting your filters or search terms.
               </p>
               <button className="shop-grid__empty-btn" onClick={clearFilters}>
                 VIEW ALL COLLECTION
@@ -147,15 +158,11 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
             </div>
           )}
         </div>
-
       </div>
 
-      {/* Size Guide Modal */}
       {sizeGuideOpen && (
         <SizeGuideModal onClose={() => setSizeGuideOpen(false)} />
       )}
     </section>
   );
 }
-
-

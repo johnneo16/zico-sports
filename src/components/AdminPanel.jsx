@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Logo from './Logo';
 import { BRANDS, SURFACE_OPTIONS } from '../constants';
 import { formatPrice } from '../utils/format';
+import { supabase } from '../lib/supabase';
 import './AdminPanel.css';
 
 /**
  * Admin panel for managing products — add, edit, delete boots.
- * Fully integrated with Express backend for persistence and image uploads.
+ * Fully integrated with Supabase for persistence and image uploads.
  */
 export default function AdminPanel({ products, setProducts, onExit }) {
   const [editing, setEditing] = useState(null);
@@ -14,6 +15,21 @@ export default function AdminPanel({ products, setProducts, onExit }) {
   const [form, setForm] = useState({});
   const [saved, setSaved] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Always fetch fresh products directly from Supabase when admin panel opens
+  useEffect(() => {
+    const fetchProducts = async () => {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .order('id', { ascending: true });
+      if (!error && data) setProducts(data);
+      setLoading(false);
+    };
+    fetchProducts();
+  }, []);
 
   const startEdit = (product) => {
     setEditing(product.id);
@@ -25,11 +41,10 @@ export default function AdminPanel({ products, setProducts, onExit }) {
     setAdding(true);
     setEditing(null);
     setForm({
-      id: Date.now(),
       name: '',
       brand: 'Nike',
       price: '',
-      originalPrice: '',
+      original_price: '',
       description: '',
       surface: 'FG',
       stock: '',
@@ -50,21 +65,22 @@ export default function AdminPanel({ products, setProducts, onExit }) {
     if (!file) return;
 
     setUploading(true);
-    const formData = new FormData();
-    formData.append('image', file);
-
     try {
-      const res = await fetch('/api/upload', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await res.json();
-      if (data.imageUrl) {
-        updateField('image', data.imageUrl);
-      }
+      const fileName = `prod-${Date.now()}.${file.name.split('.').pop()}`;
+      const { error: uploadError } = await supabase.storage
+        .from('product-images')
+        .upload(fileName, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      const { data: publicData } = supabase.storage
+        .from('product-images')
+        .getPublicUrl(fileName);
+
+      updateField('image', publicData.publicUrl);
     } catch (err) {
       console.error('Upload failed', err);
-      alert('Failed to upload image. Server running?');
+      alert('Failed to upload image: ' + err.message);
     } finally {
       setUploading(false);
     }
@@ -72,49 +88,46 @@ export default function AdminPanel({ products, setProducts, onExit }) {
 
   const save = async () => {
     const item = {
-      ...form,
+      name: form.name,
+      brand: form.brand,
       price: Number(form.price),
+      original_price: form.original_price ? Number(form.original_price) : null,
+      description: form.description,
+      surface: form.surface,
       stock: Number(form.stock),
+      hot: form.hot || false,
       rating: Number(form.rating),
       reviews: Number(form.reviews),
-      originalPrice: form.originalPrice ? Number(form.originalPrice) : null,
+      image: form.image || null,
     };
 
     try {
       if (adding) {
-        const res = await fetch('/api/products', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(item),
-        });
-        const savedItem = await res.json();
-        setProducts((prev) => [...prev, savedItem]);
+        const { data, error } = await supabase.from('products').insert(item).select().single();
+        if (error) throw error;
+        setProducts((prev) => [...prev, data]);
       } else {
-        const res = await fetch(`/api/products/${editing}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(item),
-        });
-        const savedItem = await res.json();
-        setProducts((prev) =>
-          prev.map((x) => (x.id === editing ? savedItem : x))
-        );
+        const { data, error } = await supabase.from('products').update(item).eq('id', editing).select().single();
+        if (error) throw error;
+        setProducts((prev) => prev.map((x) => (x.id === editing ? data : x)));
       }
       cancel();
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     } catch (err) {
       console.error('Save failed', err);
-      alert('Failed to save to database.');
+      alert('Failed to save: ' + err.message);
     }
   };
 
   const remove = async (id) => {
     try {
-      await fetch(`/api/products/${id}`, { method: 'DELETE' });
+      const { error } = await supabase.from('products').delete().eq('id', id);
+      if (error) throw error;
       setProducts((prev) => prev.filter((x) => x.id !== id));
     } catch (err) {
       console.error('Delete failed', err);
+      alert('Failed to delete: ' + err.message);
     }
   };
 
@@ -127,7 +140,7 @@ export default function AdminPanel({ products, setProducts, onExit }) {
   const inputFields = [
     { key: 'name', label: 'Product Name', type: 'text' },
     { key: 'price', label: 'Price (₹)', type: 'number' },
-    { key: 'originalPrice', label: 'Original Price (₹) — optional', type: 'number' },
+    { key: 'original_price', label: 'Original Price (₹) — optional', type: 'number' },
     { key: 'stock', label: 'Stock Quantity', type: 'number' },
     { key: 'rating', label: 'Rating (0–5)', type: 'number' },
     { key: 'reviews', label: 'Review Count', type: 'number' },
@@ -160,7 +173,7 @@ export default function AdminPanel({ products, setProducts, onExit }) {
         {/* Product List */}
         <div className="admin__list">
           <div className="admin__list-title">
-            ALL PRODUCTS ({products.length})
+            {loading ? 'LOADING PRODUCTS…' : `ALL PRODUCTS (${products.length})`}
           </div>
           <div className="admin__products">
             {products.map((p) => (

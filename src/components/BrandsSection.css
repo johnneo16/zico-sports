@@ -1,17 +1,37 @@
 .brands-section {
-  background-image: url('/neon_bg.jpg');
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
+  background: var(--bg-primary);
   position: relative;
-  padding: var(--section-padding);
-  
-  /* Force dark mode colors always because the bg is dark */
-  --text-primary: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.7);
-  --text-ghost: rgba(255, 255, 255, 0.5);
-  --border-default: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  padding: 120px 32px;
+}
+
+.brands-section__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.brands-section__lights {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+  filter: grayscale(1) contrast(1.1) brightness(0.65);
+  transform: scale(1.04);
+}
+
+.brands-section__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, transparent 20%, #000 100%);
+}
+
+.brands-section__container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .brands-section::before {

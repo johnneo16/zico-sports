@@ -12,16 +12,22 @@ import CartDrawer from './components/CartDrawer';
 import AdminLogin from './components/AdminLogin';
 import BackToTop from './components/BackToTop';
 import AdminPanel from './components/AdminPanel';
+import { supabase } from './lib/supabase';
+
 export default function App() {
   const [mode, setMode] = useState('store');
   const [products, setProducts] = useState([]);
 
-  // Fetch products on mount
+  // Fetch products from Supabase on mount
   useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(data => setProducts(data))
-      .catch(err => console.error("Failed to load products:", err));
+    supabase
+      .from('products')
+      .select('*')
+      .order('id', { ascending: true })
+      .then(({ data, error }) => {
+        if (error) console.error('Failed to load products:', error.message);
+        else setProducts(data || []);
+      });
   }, []);
   const [cart, setCart] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
@@ -73,6 +79,7 @@ export default function App() {
   // Store mode
   return (
     <div className="app">
+      <a href="#main" className="skip-link">SKIP TO CONTENT</a>
       <Navbar
         cartCount={cartCount}
         onCartOpen={() => setCartOpen(true)}

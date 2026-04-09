@@ -9,7 +9,7 @@ import './ProductCard.css';
  */
 export default function ProductCard({ product, onSelect, onAddCart }) {
   const [hovered, setHovered] = useState(false);
-  const discount = getDiscount(product.price, product.originalPrice);
+  const discount = getDiscount(product.price, product.original_price);
 
   return (
     <div
@@ -22,7 +22,13 @@ export default function ProductCard({ product, onSelect, onAddCart }) {
         onClick={() => onSelect(product)}
       >
         {product.image ? (
-          <img src={product.image} alt={product.name} className="product-card__photo" loading="lazy" />
+          <img
+            src={product.image}
+            alt={product.name}
+            className="product-card__photo"
+            loading="lazy"
+            onLoad={(e) => e.target.classList.add('loaded')}
+          />
         ) : (
           <span className="product-card__emoji">{product.emoji || '👟'}</span>
         )}
@@ -52,9 +58,9 @@ export default function ProductCard({ product, onSelect, onAddCart }) {
             <span className="product-card__price">
               {formatPrice(product.price)}
             </span>
-            {product.originalPrice && (
+            {product.original_price && (
               <span className="product-card__original-price">
-                {formatPrice(product.originalPrice)}
+                {formatPrice(product.original_price)}
               </span>
             )}
           </div>

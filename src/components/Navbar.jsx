@@ -1,20 +1,15 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Settings, Menu, X, Sun, Moon } from 'lucide-react';
-import { useTheme } from '../context/ThemeProvider';
+import { ShoppingCart, Settings, Menu, X } from 'lucide-react';
 import Logo from './Logo';
 import './Navbar.css';
 
-/**
- * Fixed navigation bar with scroll-aware glassmorphism, mobile menu, and theme toggle.
- */
 export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -24,17 +19,24 @@ export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
   };
 
   const navLinks = [
-    { id: 'shop-sec', label: 'Shop' },
-    { id: 'brands-sec', label: 'Brands' },
-    { id: 'why-us', label: 'Why Us' },
-    { id: 'about-sec', label: 'About' },
+    { id: 'shop-sec',    label: 'Shop' },
+    { id: 'brands-sec',  label: 'Brands' },
+    { id: 'why-us',      label: 'Why Us' },
+    { id: 'about-sec',   label: 'About' },
     { id: 'contact-sec', label: 'Contact' },
   ];
 
   return (
     <>
-      <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
-        <div className="navbar__brand" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+      <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`} role="navigation" aria-label="Main navigation">
+        <div
+          className="navbar__brand"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Back to top"
+        >
           <Logo size={42} />
           <div className="navbar__brand-text">
             <div className="navbar__title">ZICO SPORTS</div>
@@ -50,37 +52,51 @@ export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
             </button>
           ))}
 
-          {/* Theme Toggle */}
-          <button className="navbar__theme-toggle" onClick={toggleTheme} title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
-            {theme === 'light' ? <Moon size={15} /> : <Sun size={15} />}
-          </button>
-
-          <button className="navbar__admin-link" onClick={onAdminAccess} title="Admin Panel">
+          <button
+            className="navbar__admin-link"
+            onClick={onAdminAccess}
+            title="Admin Panel"
+            aria-label="Admin Panel"
+          >
             <Settings size={14} />
           </button>
 
-          <button className="navbar__cart-btn" onClick={onCartOpen}>
-            <ShoppingCart size={16} />
-            {cartCount > 0 && <span className="navbar__cart-badge">{cartCount}</span>}
+          <button
+            className="navbar__cart-btn"
+            onClick={onCartOpen}
+            aria-label={`Shopping cart${cartCount > 0 ? `, ${cartCount} items` : ''}`}
+          >
+            <ShoppingCart size={16} aria-hidden="true" />
+            {cartCount > 0 && (
+              <span className="navbar__cart-badge" aria-hidden="true">{cartCount}</span>
+            )}
           </button>
         </div>
 
         {/* Mobile Actions */}
         <div className="navbar__mobile-actions">
-          <button className="navbar__theme-toggle" onClick={toggleTheme}>
-            {theme === 'light' ? <Moon size={15} /> : <Sun size={15} />}
+          <button
+            className="navbar__cart-btn navbar__cart-btn--mobile"
+            onClick={onCartOpen}
+            aria-label={`Cart${cartCount > 0 ? `, ${cartCount} items` : ''}`}
+          >
+            <ShoppingCart size={16} aria-hidden="true" />
+            {cartCount > 0 && (
+              <span className="navbar__cart-badge" aria-hidden="true">{cartCount}</span>
+            )}
           </button>
-          <button className="navbar__cart-btn navbar__cart-btn--mobile" onClick={onCartOpen}>
-            <ShoppingCart size={16} />
-            {cartCount > 0 && <span className="navbar__cart-badge">{cartCount}</span>}
-          </button>
-          <button className="navbar__menu-btn" onClick={() => setMobileOpen(!mobileOpen)}>
+          <button
+            className="navbar__menu-btn"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-expanded={mobileOpen}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+          >
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
       {mobileOpen && (
         <div className="navbar__mobile-overlay" onClick={() => setMobileOpen(false)}>
           <div className="navbar__mobile-menu" onClick={(e) => e.stopPropagation()}>
@@ -89,8 +105,11 @@ export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
                 {label.toUpperCase()}
               </button>
             ))}
-            <button className="navbar__mobile-link navbar__mobile-link--admin" onClick={() => { onAdminAccess(); setMobileOpen(false); }}>
-              <Settings size={14} /> ADMIN PANEL
+            <button
+              className="navbar__mobile-link navbar__mobile-link--admin"
+              onClick={() => { onAdminAccess(); setMobileOpen(false); }}
+            >
+              <Settings size={14} aria-hidden="true" /> ADMIN PANEL
             </button>
           </div>
         </div>
