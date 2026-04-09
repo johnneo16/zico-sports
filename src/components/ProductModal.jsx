@@ -8,7 +8,7 @@ import './ProductModal.css';
  */
 export default function ProductModal({ product, onClose, onAddCart }) {
   if (!product) return null;
-  const discount = getDiscount(product.price, product.originalPrice);
+  const discount = getDiscount(product.price, product.original_price);
 
   return (
     <div className="product-modal__overlay" onClick={onClose}>
@@ -41,10 +41,10 @@ export default function ProductModal({ product, onClose, onAddCart }) {
               <span className="product-modal__price">
                 {formatPrice(product.price)}
               </span>
-              {product.originalPrice && (
+              {product.original_price && (
                 <>
                   <span className="product-modal__original-price">
-                    {formatPrice(product.originalPrice)}
+                    {formatPrice(product.original_price)}
                   </span>
                   <span className="product-modal__discount">-{discount}%</span>
                 </>
