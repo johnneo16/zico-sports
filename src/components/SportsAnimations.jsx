@@ -29,28 +29,6 @@ export function HeroFieldAnimation() {
           <path d="M1640,800 L1040,0" />
         </g>
 
-        {/* Player Sequence */}
-        <g className="sports-scene__player">
-          {/* Silhouette shadow */}
-          <ellipse cx="140" cy="650" rx="40" ry="10" fill="currentColor" opacity="0.1" className="player-shadow" />
-          
-          <g className="player-body" fill="currentColor" opacity="0.15">
-            {/* Abstract player shape kicking */}
-            <circle cx="120" cy="480" r="24" /> {/* Head */}
-            <path d="M110,510 Q140,580 130,640" stroke="currentColor" strokeWidth="18" fill="none" strokeLinecap="round" /> {/* Body/Leg planted */}
-            <path d="M110,510 Q70,550 50,520" stroke="currentColor" strokeWidth="14" fill="none" strokeLinecap="round" /> {/* Back Arm */}
-            <path d="M110,510 Q150,540 180,510" stroke="currentColor" strokeWidth="14" fill="none" strokeLinecap="round" /> {/* Front Arm */}
-            <path d="M130,580 Q190,560 210,610" stroke="currentColor" strokeWidth="20" fill="none" strokeLinecap="round" className="kicking-leg" /> {/* Kicking Leg */}
-          </g>
-        </g>
-
-        {/* Fast moving ball trajectory */}
-        <g className="sports-scene__ball-group">
-          {/* Motion trail */}
-          <path d="M220,620 Q500,450 1440,500" stroke="currentColor" strokeWidth="4" opacity="0.05" fill="none" strokeDasharray="10 10" className="ball-trail"/>
-          {/* Ball */}
-          <circle cx="220" cy="620" r="14" fill="currentColor" opacity="0.3" className="animated-ball" />
-        </g>
       </svg>
     </div>
   );

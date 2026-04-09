@@ -23,6 +23,7 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
   };
 
   let filtered = products.filter((p) => {
+    if (!['Nike', 'Adidas', 'Puma', 'Mizuno'].includes(p.brand)) return false;
     if (brand !== 'All' && p.brand !== brand) return false;
     if (surface !== 'All Surfaces' && !p.surface.includes(surface))
       return false;

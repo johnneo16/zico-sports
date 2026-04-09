@@ -31,7 +31,7 @@ export default function HeroSection({ onShop }) {
       <div className="hero__glow" />
       <div className="hero__line" />
 
-      {/* Animated Sports SVGs */}
+      {/* Field Background */}
       <HeroFieldAnimation />
 
       <div className="hero__content">
@@ -39,13 +39,11 @@ export default function HeroSection({ onShop }) {
 
         <div className="hero__badge">
           <span className="hero__badge-dot" />
-          BANKURA'S FOOTBALL BOOT SPECIALIST · EST. 2018
+          BANKURA'S FOOTBALL BOOT SPECIALIST · EST. 2026
         </div>
 
         <h1 className="hero__title">
-          PLAY
-          <br />
-          <em>BEYOND LIMITS</em>
+          PLAY <span className="hero__highlight">BEYOND LIMITS</span>
         </h1>
 
         <p className="hero__tagline">We believe in quality.</p>
@@ -80,7 +78,7 @@ export default function HeroSection({ onShop }) {
         <div className="hero__stats">
           {stats.map(({ icon: Icon, value, label }) => (
             <div key={label} className="hero__stat">
-              <Icon size={16} className="hero__stat-icon" />
+              <Icon size={20} className="hero__stat-icon" />
               <div className="hero__stat-value">{value}</div>
               <div className="hero__stat-label">{label.toUpperCase()}</div>
             </div>

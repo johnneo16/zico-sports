@@ -26,7 +26,7 @@ const features = [
 ];
 
 const stats = [
-  { value: '2018', label: 'Founded' },
+  { value: '2026', label: 'Founded' },
   { value: '500+', label: 'Customers' },
   { value: '8', label: 'Brands' },
 ];
@@ -50,7 +50,7 @@ export default function AboutSection() {
             for Champions.
           </h2>
           <p className="about-section__text">
-            Zico Sports was founded in 2018 by ex-footballers who were tired of
+            Zico Sports was founded in 2026 by ex-footballers who were tired of
             settling for overpriced boots with no real expertise behind the
             recommendation. We are Bankura's only dedicated football spikes
             specialist.

@@ -140,22 +140,19 @@
 }
 
 .why-section__trust-number {
-  font-size: 28px;
+  font-size: 36px;
   font-weight: 900;
-  background: linear-gradient(135deg, #ffffff, #9ca3af);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-family: var(--font-mono);
-  filter: drop-shadow(0 2px 8px rgba(255,255,255,0.1));
+  color: var(--text-primary);
+  font-family: var(--font-sans), sans-serif;
+  margin-bottom: 2px;
 }
 
 .why-section__trust-text {
   font-size: 11px;
-  font-weight: 800;
-  color: var(--text-secondary);
+  color: var(--zico-red);
   letter-spacing: 2px;
-  font-family: var(--font-mono);
+  font-weight: 700;
+  font-family: var(--font-sans), sans-serif;
   text-transform: uppercase;
 }
 

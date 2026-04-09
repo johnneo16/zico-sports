@@ -12,53 +12,7 @@
   color: var(--zico-red);
 }
 
-/* Animations */
-@keyframes kickLeg {
-  0%, 100% { transform: rotate(0deg); }
-  /* Light kick / tap */
-  10% { transform: rotate(-10deg); }
-  15% { transform: rotate(20deg); }
-  20% { transform: rotate(0deg); }
-  /* Hard kick */
-  25% { transform: rotate(-15deg); }
-  32% { transform: rotate(45deg); } 
-  45% { transform: rotate(0deg); }
-}
-
-@keyframes shootBall {
-  0%, 14% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-  /* Small bounce */
-  16% { transform: translate(0px, -30px) scale(0.95); opacity: 0.6; }
-  20% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-  /* Hard kick */
-  28% { transform: translate(0, 0) scale(1); opacity: 0.3; }
-  32% { transform: translate(40px, -10px) scale(0.9); opacity: 0.8; }
-  65% { transform: translate(1300px, -150px) scale(0.3); opacity: 0; }
-  100% { transform: translate(1300px, -150px) scale(0.3); opacity: 0; }
-}
-
-@keyframes drawTrail {
-  0%, 28% { stroke-dashoffset: 2000; opacity: 0; }
-  32% { stroke-dashoffset: 0; opacity: 0.2; }
-  65% { opacity: 0; }
-  100% { opacity: 0; }
-}
-
-.kicking-leg {
-  transform-origin: 130px 580px;
-  animation: kickLeg 6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-.animated-ball {
-  animation: shootBall 6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
-.ball-trail {
-  stroke-dasharray: 2000;
-  stroke-dashoffset: 2000;
-  animation: drawTrail 6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-
+/* Animations removed */
 .field-divider {
   width: 100%;
   color: var(--zico-red);

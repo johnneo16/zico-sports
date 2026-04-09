@@ -52,43 +52,47 @@
 }
 
 .brand-card {
-  background: rgba(10, 10, 10, 0.6);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 24px 18px;
+  background: linear-gradient(135deg, rgba(30, 30, 30, 0.6), rgba(10, 10, 10, 0.8));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom-color: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  padding: 30px 20px;
   text-align: center;
-  transition: all var(--transition-base);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .brand-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(248, 60, 46, 0.25);
-  border-color: var(--zico-red);
+  transform: translateY(-8px) scale(1.02);
+  background: linear-gradient(135deg, rgba(40, 40, 40, 0.7), rgba(15, 15, 15, 0.9));
+  box-shadow: 0 16px 40px rgba(248, 60, 46, 0.2), inset 0 0 0 1px rgba(248, 60, 46, 0.1);
+  border-color: rgba(248, 60, 46, 0.5);
 }
 
 .brand-card__logo-wrapper {
   width: 60px;
   height: 50px;
-  margin: 0 auto 14px;
+  margin: 0 auto 16px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .brand-card__logo {
-  max-width: 60px;
-  max-height: 40px;
+  max-width: 65px;
+  max-height: 45px;
   object-fit: contain;
-  /* Since background is dark glass, always invert black logos */
-  filter: grayscale(100%) opacity(0.6) invert(1);
-  transition: filter var(--transition-base);
+  /* Use brightness(0) to turn ANY color input into black, then invert to white, then opacity */
+  filter: brightness(0) invert(1) opacity(0.5);
+  transition: filter 0.3s ease, transform 0.3s ease;
 }
 
 .brand-card:hover .brand-card__logo {
-  filter: grayscale(0%) opacity(1) invert(1) drop-shadow(0 0 8px var(--zico-red));
+  filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(248, 60, 46, 0.6));
+  transform: scale(1.1);
 }
 
 .brand-card__fallback {

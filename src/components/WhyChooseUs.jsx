@@ -82,7 +82,7 @@ export default function WhyChooseUs() {
           </div>
           <div className="why-section__trust-divider" />
           <div className="why-section__trust-item">
-            <span className="why-section__trust-number"><CountUp end={2018} duration={1500} /></span>
+            <span className="why-section__trust-number"><CountUp end={2026} duration={1500} /></span>
             <span className="why-section__trust-text">Serving Since</span>
           </div>
 
