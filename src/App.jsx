@@ -79,6 +79,7 @@ export default function App() {
   // Store mode
   return (
     <div className="app">
+      <a href="#main" className="skip-link">SKIP TO CONTENT</a>
       <Navbar
         cartCount={cartCount}
         onCartOpen={() => setCartOpen(true)}

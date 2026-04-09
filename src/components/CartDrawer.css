@@ -9,8 +9,11 @@
 
 .cart-overlay {
   position: fixed;
-  inset: 0;
-  z-index: 400;
+  top: 80px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 350;
   display: flex;
 }
 

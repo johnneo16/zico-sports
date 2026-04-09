@@ -1,5 +1,6 @@
-import { MapPin, Phone, Mail, Globe, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Send } from 'lucide-react';
 import Logo from './Logo';
+import useScrollReveal from '../hooks/useScrollReveal';
 import './Footer.css';
 
 const footerLinks = [
@@ -17,14 +18,13 @@ const footerLinks = [
   },
 ];
 
-/**
- * Site footer with links, brand info, contact, and legal.
- */
 export default function Footer({ onAdminAccess }) {
+  const sectionRef = useScrollReveal();
+
   return (
-    <footer className="footer">
+    <footer className="footer" ref={sectionRef}>
       <div className="footer__container">
-        <div className="footer__grid">
+        <div className="footer__grid reveal">
           {/* Brand Column */}
           <div className="footer__brand">
             <div className="footer__brand-header">
@@ -39,20 +39,22 @@ export default function Footer({ onAdminAccess }) {
               Bankura's most trusted football boot specialist. Every stud. Every
               brand. Every surface.
             </p>
-            <div className="footer__contact-mini">
+            <address className="footer__contact-mini">
               <div className="footer__contact-item">
-                <MapPin size={12} />
+                <MapPin size={12} aria-hidden="true" />
                 <span>Doltala, Satighat, Bankura, 722101</span>
               </div>
               <div className="footer__contact-item">
-                <Phone size={12} />
-                <span>+91 7987461287</span>
+                <Phone size={12} aria-hidden="true" />
+                <a href="tel:+917987461287" className="footer__contact-link">+91 7987461287</a>
               </div>
               <div className="footer__contact-item">
-                <Mail size={12} />
-                <span>zicosports.bqa@gmail.com</span>
+                <Mail size={12} aria-hidden="true" />
+                <a href="mailto:zicosports.bqa@gmail.com" className="footer__contact-link">
+                  zicosports.bqa@gmail.com
+                </a>
               </div>
-            </div>
+            </address>
           </div>
 
           {/* Link Columns */}
@@ -60,9 +62,9 @@ export default function Footer({ onAdminAccess }) {
             <div key={heading} className="footer__column">
               <div className="footer__column-heading">{heading}</div>
               {links.map((link) => (
-                <div key={link} className="footer__link">
+                <a key={link} href="#" className="footer__link" onClick={(e) => e.preventDefault()}>
                   {link}
-                </div>
+                </a>
               ))}
             </div>
           ))}
@@ -73,37 +75,73 @@ export default function Footer({ onAdminAccess }) {
             <p className="footer__newsletter-text">
               Subscribe to get exclusive early access to new boot drops and Bankura-only discounts.
             </p>
-            <form className="footer__newsletter-form" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Email address" className="footer__newsletter-input" required />
-              <button type="submit" className="footer__newsletter-btn">
-                <Send size={14} />
+            <form
+              className="footer__newsletter-form"
+              onSubmit={(e) => e.preventDefault()}
+              noValidate
+            >
+              <input
+                type="email"
+                placeholder="Email address"
+                className="footer__newsletter-input"
+                autoComplete="email"
+                required
+                aria-label="Email address for newsletter"
+              />
+              <button
+                type="submit"
+                className="footer__newsletter-btn"
+                aria-label="Subscribe to newsletter"
+              >
+                <Send size={14} aria-hidden="true" />
               </button>
             </form>
+
             <div className="footer__socials">
-              {/* Instagram */}
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="footer__social-icon" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer__social-icon"
+                aria-label="Instagram"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="18" height="18" aria-hidden="true">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                   <circle cx="12" cy="12" r="4.5" />
                   <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
                 </svg>
               </a>
-              {/* Facebook */}
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="footer__social-icon" aria-label="Facebook">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer__social-icon"
+                aria-label="Facebook"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
                   <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                 </svg>
               </a>
-              {/* YouTube */}
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="footer__social-icon" aria-label="YouTube">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer__social-icon"
+                aria-label="YouTube"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
                   <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
                   <polygon fill="#1a1a1a" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
                 </svg>
               </a>
-              {/* WhatsApp */}
-              <a href="https://wa.me/917987461287" target="_blank" rel="noopener noreferrer" className="footer__social-icon" aria-label="WhatsApp">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+              <a
+                href="https://wa.me/917987461287"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer__social-icon"
+                aria-label="WhatsApp"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
                 </svg>
               </a>
@@ -111,16 +149,21 @@ export default function Footer({ onAdminAccess }) {
           </div>
         </div>
 
+        {/* Payment icons */}
         <div className="footer__payments">
           <div className="footer__payment-group">
-            {/* UPI — clean inline SVG wordmark */}
             <div className="footer__payment-icon footer__payment-upi" aria-label="UPI">
-              <svg viewBox="0 0 80 30" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-                <text x="4" y="22" fontFamily="Arial,sans-serif" fontSize="20" fontWeight="800" letterSpacing="-1" fill="#ffffff">UPI</text>
+              {/* UPI — Unified Payments Interface branded mark */}
+              <svg viewBox="0 0 80 36" xmlns="http://www.w3.org/2000/svg">
+                {/* Left arrow chevron */}
+                <polygon points="8,10 20,10 26,18 20,26 8,26 14,18" fill="#097939" />
+                {/* Right arrow chevron */}
+                <polygon points="22,10 34,10 40,18 34,26 22,26 28,18" fill="#F7941D" />
+                {/* UPI text */}
+                <text x="44" y="23" fontFamily="Arial,sans-serif" fontSize="16" fontWeight="900" letterSpacing="-0.5" fill="#ffffff">UPI</text>
               </svg>
             </div>
-            {/* Google Pay */}
-            <div className="footer__payment-icon gpay-svg">
+            <div className="footer__payment-icon gpay-svg" aria-label="Google Pay">
               <svg viewBox="0 0 80 38.1" xmlns="http://www.w3.org/2000/svg">
                 <path style={{ fill: '#fff' }} d="M37.8,19.7V29h-3V6h7.8c1.9,0,3.7,0.7,5.1,2c1.4,1.2,2.1,3,2.1,4.9c0,1.9-0.7,3.6-2.1,4.9c-1.4,1.3-3.1,2-5.1,2L37.8,19.7z M37.8,8.8v8h5c1.1,0,2.2-0.4,2.9-1.2c1.6-1.5,1.6-4,0.1-5.5c-0.8-0.8-1.8-1.3-2.9-1.2L37.8,8.8z" />
                 <path style={{ fill: '#fff' }} d="M56.7,12.8c2.2,0,3.9,0.6,5.2,1.8s1.9,2.8,1.9,4.8V29H61v-2.2h-0.1c-1.2,1.8-2.9,2.7-4.9,2.7c-1.7,0-3.2-0.5-4.4-1.5c-1.1-1-1.8-2.4-1.8-3.9c0-1.6,0.6-2.9,1.8-3.9c1.2-1,2.9-1.4,4.9-1.4c1.8,0,3.2,0.3,4.3,1v-0.7c0-1-0.4-2-1.2-2.6c-0.8-0.7-1.8-1.1-2.9-1.1c-1.7,0-3,0.7-3.9,2.1l-2.6-1.6C51.8,13.8,53.9,12.8,56.7,12.8z M52.9,24.2c0,0.8,0.4,1.5,1,1.9c0.7,0.5,1.5,0.8,2.3,0.8c1.2,0,2.4-0.5,3.3-1.4c1-0.9,1.5-2,1.5-3.2c-0.9-0.7-2.2-1.1-3.9-1.1c-1.2,0-2.2,0.3-3,0.9C53.3,22.6,52.9,23.3,52.9,24.2z" />
@@ -133,13 +176,11 @@ export default function Footer({ onAdminAccess }) {
             </div>
           </div>
           <div className="footer__payment-group">
-            {/* Visa — inline SVG */}
             <div className="footer__payment-icon footer__payment-fa" aria-label="Visa">
               <svg viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg">
                 <text x="2" y="16" fontFamily="Arial,sans-serif" fontSize="18" fontWeight="900" fontStyle="italic" fill="#ffffff" letterSpacing="-1">VISA</text>
               </svg>
             </div>
-            {/* Mastercard — inline SVG circles */}
             <div className="footer__payment-icon footer__payment-fa" aria-label="Mastercard">
               <svg viewBox="0 0 44 28" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="14" cy="14" r="12" fill="#EB001B" opacity="0.9" />
@@ -159,7 +200,7 @@ export default function Footer({ onAdminAccess }) {
             <br />
             <button
               onClick={onAdminAccess}
-              style={{ background: 'none', border: 'none', color: 'var(--text-ghost)', fontSize: '10px', marginTop: '8px', cursor: 'pointer' }}
+              className="footer__admin-btn"
             >
               ADMIN LOGIN
             </button>

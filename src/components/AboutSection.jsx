@@ -1,5 +1,6 @@
-import { Trophy, Truck, RotateCcw, Phone } from 'lucide-react';
+import { Trophy, Truck, Phone } from 'lucide-react';
 import CountUp from './CountUp';
+import useScrollReveal from '../hooks/useScrollReveal';
 import './AboutSection.css';
 
 const features = [
@@ -26,25 +27,28 @@ const stats = [
   { value: '4', label: 'Brands' },
 ];
 
-/**
- * About section with story narrative and feature highlights.
- */
 export default function AboutSection() {
+  const sectionRef = useScrollReveal();
+
   return (
-    <section id="about-sec" className="about-section">
+    <section id="about-sec" className="about-section" ref={sectionRef}>
       <div className="about-section__bg">
-        <img src="/ronaldo_bw.png" alt="Ronaldo" className="about-section__ronaldo" />
+        <img
+          src="/ronaldo_bw.png"
+          alt=""
+          aria-hidden="true"
+          className="about-section__ronaldo"
+        />
         <div className="about-section__overlay" />
       </div>
+
       <div className="about-section__container">
-        <div className="about-section__story">
+        <div className="about-section__story reveal reveal--left">
           <div className="section-label">OUR STORY</div>
           <h2 className="section-title about-section__title">
             Born on the
             <br />
-            <em>
-              Field. Built
-            </em>
+            <em>Field. Built</em>
             <br />
             for Champions.
           </h2>
@@ -64,9 +68,9 @@ export default function AboutSection() {
             {stats.map(({ value, label }) => (
               <div key={label} className="about-section__stat">
                 <div className="about-section__stat-value">
-                  <CountUp 
-                    end={parseInt(value)} 
-                    suffix={value.includes('+') ? '+' : ''} 
+                  <CountUp
+                    end={parseInt(value)}
+                    suffix={value.includes('+') ? '+' : ''}
                     duration={2500}
                   />
                 </div>
@@ -78,10 +82,10 @@ export default function AboutSection() {
           </div>
         </div>
 
-        <div className="about-section__features">
+        <div className="about-section__features reveal reveal--right reveal--delay-2">
           {features.map(({ icon: Icon, title, desc }) => (
             <div key={title} className="about-feature">
-              <div className="about-feature__icon">
+              <div className="about-feature__icon" aria-hidden="true">
                 <Icon size={18} />
               </div>
               <div>

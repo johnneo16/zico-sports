@@ -22,7 +22,13 @@ export default function ProductCard({ product, onSelect, onAddCart }) {
         onClick={() => onSelect(product)}
       >
         {product.image ? (
-          <img src={product.image} alt={product.name} className="product-card__photo" loading="lazy" />
+          <img
+            src={product.image}
+            alt={product.name}
+            className="product-card__photo"
+            loading="lazy"
+            onLoad={(e) => e.target.classList.add('loaded')}
+          />
         ) : (
           <span className="product-card__emoji">{product.emoji || '👟'}</span>
         )}

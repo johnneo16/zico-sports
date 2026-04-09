@@ -17,105 +17,121 @@
   height: 100%;
   object-fit: cover;
   object-position: center 20%;
-  opacity: 0.5;
-  filter: grayscale(1) contrast(1.2) brightness(0.5);
-  animation: slowZoom 20s ease-in-out infinite alternate;
+  opacity: 0.65;
+  filter: grayscale(1) contrast(1.15) brightness(0.65);
 }
 
 .why-section__overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, transparent 20%, rgba(0,0,0,0.8) 100%);
+  /* Stronger vignette so text is always legible */
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.88) 100%);
 }
 
+/* ── Container — prominent frosted glass panel ── */
 .why-section__container {
   max-width: var(--container-max);
   margin: 0 auto;
   position: relative;
   z-index: 1;
-}
-
-.why-section__container.glass {
-  padding: 80px 40px;
+  background: rgba(8, 8, 8, 0.55);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-xl);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 72px 56px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 40px 80px rgba(0, 0, 0, 0.6);
 }
 
+/* ── Header ── */
 .why-section__header {
   text-align: center;
-  margin-bottom: 72px;
+  margin-bottom: 52px;
+}
+
+.why-section__header .section-title {
+  /* Extra-large for this prominent section */
+  font-size: clamp(34px, 5vw, 54px);
 }
 
 .why-section__subtitle {
-  color: rgba(255, 255, 255, 0.6);
-  max-width: 500px;
-  margin: 16px auto 0;
-  font-size: 16px;
-  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 460px;
+  margin: 14px auto 0;
+  font-size: 15px;
+  line-height: 1.65;
 }
 
-/* ── Grid ── */
+/* ── 3-col grid ── */
 .why-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-bottom: 60px;
+  gap: 18px;
+  margin-bottom: 44px;
 }
 
 /* ── Card ── */
 .why-card {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-xl);
-  padding: 36px 30px;
-  transition: all var(--transition-base);
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--glass-shadow);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-lg);
+  padding: 30px 24px;
+  display: flex;
+  flex-direction: column;
+  /* Include all transition properties so reveal + hover both animate */
+  transition:
+    opacity       0.65s cubic-bezier(0.4, 0, 0.2, 1),
+    transform     0.65s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color  0.25s ease,
+    background    0.25s ease,
+    box-shadow    0.25s ease;
 }
 
-.why-card:hover {
-  transform: translateY(-10px);
-  border-color: rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.why-card--highlight {
-  border-color: var(--zico-red);
-  background: rgba(255, 62, 46, 0.03);
+/* Hover only after reveal completes — component CSS wins over index.css by load order */
+.why-card.is-visible:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 62, 46, 0.35);
+  background: rgba(255, 62, 46, 0.05);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
 }
 
 .why-card__icon-wrapper {
-  width: 52px;
-  height: 52px;
-  border-radius: 12px;
-  background: rgba(255, 62, 46, 0.1);
+  width: 46px;
+  height: 46px;
+  border-radius: 11px;
+  background: rgba(255, 62, 46, 0.12);
+  border: 1px solid rgba(255, 62, 46, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 24px;
+  margin-bottom: 18px;
   color: var(--zico-red);
+  flex-shrink: 0;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
-.why-card:hover .why-card__icon-wrapper {
+.why-card.is-visible:hover .why-card__icon-wrapper {
   background: var(--zico-red);
   color: #fff;
-  transform: scale(1.1) rotate(5deg);
+  transform: scale(1.08) rotate(4deg);
 }
 
 .why-card__title {
   color: #fff;
   font-weight: 700;
-  font-size: 18px;
-  margin-bottom: 12px;
+  font-size: 15px;
+  margin-bottom: 9px;
+  line-height: 1.3;
 }
 
 .why-card__desc {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 14px;
-  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 13px;
+  line-height: 1.65;
+  flex: 1;
 }
 
 /* ── Trust Banner ── */
@@ -124,25 +140,22 @@
   align-items: center;
   justify-content: center;
   gap: 60px;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-xl);
-  padding: 48px 60px;
-  box-shadow: var(--glass-shadow);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 36px 60px;
 }
 
 .why-section__trust-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   text-align: center;
 }
 
 .why-section__trust-number {
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 900;
   color: #fff;
   line-height: 1;
@@ -150,8 +163,8 @@
 }
 
 .why-section__trust-text {
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.4);
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.35);
   letter-spacing: 3px;
   font-weight: 700;
   text-transform: uppercase;
@@ -159,38 +172,47 @@
 
 .why-section__trust-divider {
   width: 1px;
-  height: 60px;
+  height: 48px;
   background: rgba(255, 255, 255, 0.1);
 }
 
 /* ── Responsive ── */
-@media (max-width: 900px) {
-  .why-grid {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 960px) {
+  .why-section__container {
+    padding: 56px 32px;
   }
 }
 
-@media (max-width: 640px) {
-  .why-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
+@media (max-width: 768px) {
+  .why-section { padding: 80px 16px; }
+
+  .why-section__container {
+    padding: 44px 24px;
+    border-radius: var(--radius-lg);
   }
 
-  .why-card {
-    padding: 22px 20px;
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
+}
+
+@media (max-width: 540px) {
+  .why-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .why-card { padding: 22px 18px; }
+
+  .why-section__container { padding: 36px 16px; }
 
   .why-section__trust {
     flex-wrap: wrap;
     gap: 20px;
-    padding: 24px 20px;
+    padding: 24px 16px;
   }
 
-  .why-section__trust-divider {
-    display: none;
-  }
-
-  .why-section__trust-item {
-    min-width: 100px;
-  }
+  .why-section__trust-divider { display: none; }
+  .why-section__trust-number { font-size: 34px; }
 }

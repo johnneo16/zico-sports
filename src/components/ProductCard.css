@@ -45,8 +45,16 @@
   max-height: 80%;
   object-fit: contain;
   filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
-  transition: transform var(--transition-spring);
+  /* Fade in on load */
+  opacity: 0;
+  transition:
+    opacity 0.5s ease,
+    transform var(--transition-spring);
   z-index: 1;
+}
+
+.product-card__photo.loaded {
+  opacity: 1;
 }
 
 .product-card--hovered .product-card__photo {
