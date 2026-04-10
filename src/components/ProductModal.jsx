@@ -23,7 +23,7 @@ export default function ProductModal({ product, onClose, onAddCart }) {
             ) : (
               <span className="product-modal__emoji">{product.emoji || '👟'}</span>
             )}
-            {product.category === 'Boots' && (
+            {(product.category || 'Boots') === 'Boots' && (
               <div className="product-modal__surface">{product.surface}</div>
             )}
           </div>
@@ -34,7 +34,7 @@ export default function ProductModal({ product, onClose, onAddCart }) {
 
         <div className="product-modal__body">
           <div className="product-modal__brand">
-            {product.brand.toUpperCase()} · {product.category.toUpperCase()}
+            {product.brand.toUpperCase()} · {(product.category || 'Boots').toUpperCase()}
           </div>
           <h2 className="product-modal__name">{product.name}</h2>
           <Stars rating={product.rating} />
@@ -46,7 +46,7 @@ export default function ProductModal({ product, onClose, onAddCart }) {
           <div className="product-modal__size-selector">
             <span className="product-modal__size-label">SELECT SIZE</span>
             <div className="product-modal__sizes">
-              {product.category === 'Jerseys' 
+              {(product.category || 'Boots') === 'Jerseys' 
                 ? ['S', 'M', 'L', 'XL', 'XXL'].map(s => <button key={s} className="product-modal__size-btn">{s}</button>)
                 : ['7.5', '8.5', '9.5', '10.5', '11.5'].map(s => <button key={s} className="product-modal__size-btn">{s}</button>)
               }

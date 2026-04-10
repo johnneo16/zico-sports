@@ -194,7 +194,7 @@ export default function AdminPanel({ products, setProducts, onExit }) {
 
           <div className="admin__products">
             {products
-              .filter((p) => categoryFilter === 'All' || p.category === categoryFilter)
+              .filter((p) => categoryFilter === 'All' || (p.category || 'Boots') === categoryFilter)
               .map((p) => (
               <div
                 key={p.id}
@@ -214,10 +214,10 @@ export default function AdminPanel({ products, setProducts, onExit }) {
                 </div>
                 <div className="admin__product-info">
                   <div className="admin__product-name">
-                    <span className="admin__category-tag">{p.category?.toUpperCase()}</span> {p.name}
+                    <span className="admin__category-tag">{(p.category || 'Boots').toUpperCase()}</span> {p.name}
                   </div>
                   <div className="admin__product-meta">
-                    {p.brand} · {p.category === 'Boots' ? p.surface : 'Kit'} · Stock: {p.stock}
+                    {p.brand} · {(p.category || 'Boots') === 'Boots' ? p.surface : 'Kit'} · Stock: {p.stock}
                     {p.hot ? ' · 🔥' : ''}
                   </div>
                 </div>
