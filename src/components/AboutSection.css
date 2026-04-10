@@ -15,21 +15,22 @@
   pointer-events: none;
 }
 
-.about-section__ronaldo {
+.about-section__messi {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center bottom;
   opacity: 0.88;
-  filter: grayscale(1) contrast(1.25) brightness(0.75);
-  mask-image: linear-gradient(to left, black 60%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to left, black 60%, transparent 100%);
+  filter: grayscale(1) contrast(1.1) brightness(0.65);
+  /* Show more of the image before fading */
+  mask-image: linear-gradient(to left, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to left, black 85%, transparent 100%);
 }
 
 .about-section__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, #000 30%, transparent 100%);
+  background: linear-gradient(to right, #000 5%, transparent 100%);
 }
 
 .about-section__container {

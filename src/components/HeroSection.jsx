@@ -41,10 +41,10 @@ export default function HeroSection({ onShop }) {
       <div className="hero__background-image">
         <img
           ref={bgRef}
-          src="/messi_hero_16_9.png"
-          alt=""
+          src="/ronaldo_hero_16_9.png"
+          alt="Ronaldo Hero Visual"
           aria-hidden="true"
-          className="hero__messi-img"
+          className="hero__ronaldo-img"
         />
         <div className="hero__overlay-gradient" />
       </div>

@@ -20,8 +20,9 @@ export default function ShopSection({ products, onSelect, onAddCart }) {
   };
 
   let filtered = products.filter((p) => {
-    // 1. Category Filter
-    if (p.category !== category) return false;
+    // 1. Category Filter - default missing to 'Boots'
+    const pCategory = p.category || 'Boots';
+    if (pCategory !== category) return false;
 
     // 2. Brand Filter
     if (brand !== 'All' && p.brand !== brand) return false;
