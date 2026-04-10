@@ -6,7 +6,7 @@ import './Footer.css';
 const footerLinks = [
   {
     heading: 'Shop',
-    links: ['All Boots', 'Nike Boots', 'Adidas Boots', 'Puma Boots', 'Mizuno Boots', 'Clearance Sale'],
+    links: ['New Drops', 'Boots', 'Jerseys', 'Training Gear', 'Match Essentials', 'Sale'],
   },
   {
     heading: 'Info',
@@ -36,7 +36,7 @@ export default function Footer({ onAdminAccess }) {
             </div>
             <p className="footer__brand-tagline">We believe in quality.</p>
             <p className="footer__brand-desc">
-              Bankura's most trusted football boot specialist. Every stud. Every
+              Bankura's most trusted elite football equipment destination. Every kit. Every
               brand. Every surface.
             </p>
             <address className="footer__contact-mini">
@@ -73,7 +73,7 @@ export default function Footer({ onAdminAccess }) {
           <div className="footer__column footer__column--newsletter">
             <div className="footer__column-heading">JOIN THE SQUAD</div>
             <p className="footer__newsletter-text">
-              Subscribe to get exclusive early access to new boot drops and Bankura-only discounts.
+              Subscribe to get exclusive early access to new gear drops and Bankura-only discounts.
             </p>
             <form
               className="footer__newsletter-form"
@@ -193,7 +193,10 @@ export default function Footer({ onAdminAccess }) {
 
         <div className="footer__bottom">
           <div className="footer__copyright">
-            © 2026 ZICO SPORTS. ALL RIGHTS RESERVED.
+            © 2026 ZICO SPORTS. Elite Football Boots, Jerseys & Performance Gear.
+            <div className="footer__dev-signature">
+              Built with precision by Arindam Chowdhury
+            </div>
           </div>
           <div className="footer__legal">
             BANKURA, WEST BENGAL · INDIA

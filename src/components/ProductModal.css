@@ -146,6 +146,51 @@
   line-height: 1.15;
 }
 
+/* Sizing */
+.product-modal__size-selector {
+  margin: 24px 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.product-modal__size-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-ghost);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.product-modal__sizes {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.product-modal__size-btn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.product-modal__size-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
 .product-modal__desc {
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.65;

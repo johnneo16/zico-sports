@@ -311,6 +311,19 @@
   font-family: var(--font-mono);
 }
 
+.footer__dev-signature {
+  font-size: 9px;
+  color: var(--text-dead);
+  opacity: 0.35;
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+  transition: opacity var(--transition-base);
+}
+
+.footer__dev-signature:hover {
+  opacity: 0.8;
+}
+
 .footer__legal {
   font-size: 10px;
   color: var(--text-dead);

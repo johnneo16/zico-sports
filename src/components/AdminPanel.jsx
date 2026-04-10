@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import Logo from './Logo';
-import { BRANDS, SURFACE_OPTIONS } from '../constants';
+import { BRANDS, SURFACE_OPTIONS, CATEGORIES } from '../constants';
 import { formatPrice } from '../utils/format';
 import { supabase } from '../lib/supabase';
 import './AdminPanel.css';
@@ -16,6 +16,7 @@ export default function AdminPanel({ products, setProducts, onExit }) {
   const [saved, setSaved] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [categoryFilter, setCategoryFilter] = useState('All');
 
   // Always fetch fresh products directly from Supabase when admin panel opens
   useEffect(() => {
@@ -52,6 +53,7 @@ export default function AdminPanel({ products, setProducts, onExit }) {
       rating: 4.5,
       reviews: 0,
       image: '',
+      category: 'Boots',
     });
   };
 
@@ -99,6 +101,7 @@ export default function AdminPanel({ products, setProducts, onExit }) {
       rating: Number(form.rating),
       reviews: Number(form.reviews),
       image: form.image || null,
+      category: form.category || 'Boots',
     };
 
     try {
@@ -160,7 +163,7 @@ export default function AdminPanel({ products, setProducts, onExit }) {
         </div>
         <div className="admin__header-actions">
           <button className="admin__add-btn" onClick={startAdd}>
-            + ADD BOOT
+            + ADD PRODUCT
           </button>
           <button className="admin__exit-btn" onClick={onExit}>
             ← VIEW STORE
@@ -172,11 +175,27 @@ export default function AdminPanel({ products, setProducts, onExit }) {
       <div className="admin__content">
         {/* Product List */}
         <div className="admin__list">
-          <div className="admin__list-title">
-            {loading ? 'LOADING PRODUCTS…' : `ALL PRODUCTS (${products.length})`}
+          <div className="admin__list-header">
+            <div className="admin__list-title">
+              {loading ? 'LOADING PRODUCTS…' : `ALL PRODUCTS (${products.length})`}
+            </div>
+            <div className="admin__filters">
+              {['All', 'Boots', 'Jerseys'].map((cat) => (
+                <button
+                  key={cat}
+                  className={`admin__filter-btn ${categoryFilter === cat ? 'admin__filter-btn--active' : ''}`}
+                  onClick={() => setCategoryFilter(cat)}
+                >
+                  {cat.toUpperCase()}
+                </button>
+              ))}
+            </div>
           </div>
+
           <div className="admin__products">
-            {products.map((p) => (
+            {products
+              .filter((p) => categoryFilter === 'All' || p.category === categoryFilter)
+              .map((p) => (
               <div
                 key={p.id}
                 className={`admin__product ${
@@ -194,9 +213,11 @@ export default function AdminPanel({ products, setProducts, onExit }) {
                   )}
                 </div>
                 <div className="admin__product-info">
-                  <div className="admin__product-name">{p.name}</div>
+                  <div className="admin__product-name">
+                    <span className="admin__category-tag">{p.category?.toUpperCase()}</span> {p.name}
+                  </div>
                   <div className="admin__product-meta">
-                    {p.brand} · {p.surface} · Stock: {p.stock}
+                    {p.brand} · {p.category === 'Boots' ? p.surface : 'Kit'} · Stock: {p.stock}
                     {p.hot ? ' · 🔥' : ''}
                   </div>
                 </div>
@@ -288,17 +309,32 @@ export default function AdminPanel({ products, setProducts, onExit }) {
             </div>
 
             <div className="admin__field">
-              <label className="admin__label">SURFACE TYPE</label>
+              <label className="admin__label">CATEGORY</label>
               <select
-                value={form.surface || 'FG'}
-                onChange={(e) => updateField('surface', e.target.value)}
+                value={form.category || 'Boots'}
+                onChange={(e) => updateField('category', e.target.value)}
                 className="admin__select"
               >
-                {SURFACE_OPTIONS.map((s) => (
-                  <option key={s}>{s}</option>
+                {CATEGORIES.map((cat) => (
+                  <option key={cat}>{cat}</option>
                 ))}
               </select>
             </div>
+
+            {form.category === 'Boots' && (
+              <div className="admin__field">
+                <label className="admin__label">SURFACE TYPE</label>
+                <select
+                  value={form.surface || 'FG'}
+                  onChange={(e) => updateField('surface', e.target.value)}
+                  className="admin__select"
+                >
+                  {SURFACE_OPTIONS.map((s) => (
+                    <option key={s}>{s}</option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             <div className="admin__field">
               <label className="admin__label">DESCRIPTION</label>
