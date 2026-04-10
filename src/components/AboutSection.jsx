@@ -34,10 +34,10 @@ export default function AboutSection() {
     <section id="about-sec" className="about-section" ref={sectionRef}>
       <div className="about-section__bg">
         <img
-          src="/ronaldo_bw.png"
-          alt=""
+          src="/messi_hero_16_9.png"
+          alt="Messi Visual"
           aria-hidden="true"
-          className="about-section__ronaldo"
+          className="about-section__messi"
         />
         <div className="about-section__overlay" />
       </div>
