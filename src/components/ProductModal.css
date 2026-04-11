@@ -44,7 +44,7 @@
 
 /* ── Hero area ── */
 .product-modal__hero {
-  height: 260px;
+  height: 280px;
   background: linear-gradient(135deg, #111 0%, #000 100%);
   display: flex;
   align-items: center;
@@ -54,6 +54,8 @@
   position: relative;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
+  padding: 20px 0 8px; /* top buffer so float animation (-10px) never clips */
+  box-sizing: border-box;
 }
 
 /* subtle red corner glow */
@@ -70,8 +72,10 @@
 }
 
 .product-modal__photo {
-  max-width: 78%;
-  max-height: 82%;
+  max-width: 75%;
+  max-height: 75%;
+  width: auto;
+  height: auto;
   object-fit: contain;
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
   animation: float 4s ease-in-out infinite;
@@ -338,7 +342,8 @@
   }
 
   .product-modal__hero {
-    height: 200px;
+    height: 210px;
+    padding: 16px 0 6px;
   }
 
   .product-modal__emoji {
