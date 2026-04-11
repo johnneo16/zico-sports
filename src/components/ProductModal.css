@@ -76,7 +76,42 @@
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
   animation: float 4s ease-in-out infinite;
   z-index: 1;
+  transition: opacity 0.15s ease;
 }
+.product-modal__photo--fading { opacity: 0 !important; animation: none !important; }
+
+/* Modal carousel nav */
+.product-modal__img-nav {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #fff;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 3; cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  backdrop-filter: blur(8px);
+}
+.product-modal__img-nav--prev { left: 14px; }
+.product-modal__img-nav--next { right: 14px; }
+.product-modal__img-nav:hover { background: rgba(255,62,46,0.65); border-color: var(--zico-red); }
+
+/* Modal dots */
+.product-modal__img-dots {
+  position: absolute;
+  bottom: 12px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 6px; z-index: 3;
+}
+.product-modal__img-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.product-modal__img-dot--active { background: var(--zico-red); transform: scale(1.5); }
 
 .product-modal__emoji {
   font-size: 72px;

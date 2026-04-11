@@ -1,16 +1,21 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Settings, Menu, X } from 'lucide-react';
+import { ShoppingCart, Settings, Menu, X, MessageCircle } from 'lucide-react';
 import Logo from './Logo';
 import './Navbar.css';
 
+// Pre-filled WhatsApp greeting for enquiries
+const WA_URL =
+  'https://wa.me/917987461287?text=' +
+  encodeURIComponent("Hi Zico Sports! 👟 I'd like to enquire about your football boots.");
+
 export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled,   setScrolled]   = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const scrollTo = (id) => {
@@ -18,13 +23,28 @@ export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
     setMobileOpen(false);
   };
 
+  /**
+   * navLinks config:
+   *   id        → smooth-scroll target section
+   *   whatsapp  → open WhatsApp directly instead of scrolling
+   *   icon      → optional lucide icon shown beside the label
+   */
   const navLinks = [
-    { id: 'shop-sec',    label: 'Shop' },
-    { id: 'brands-sec',  label: 'Brands' },
-    { id: 'why-us',      label: 'Why Us' },
-    { id: 'about-sec',   label: 'About' },
-    { id: 'contact-sec', label: 'Contact' },
+    { id: 'shop-sec',   label: 'Shop' },
+    { id: 'brands-sec', label: 'Brands' },
+    { id: 'why-us',     label: 'Why Us' },
+    { id: 'about-sec',  label: 'About' },
+    { whatsapp: true,   label: 'Contact', icon: MessageCircle },
   ];
+
+  const handleLink = ({ id, whatsapp }) => {
+    if (whatsapp) {
+      window.open(WA_URL, '_blank', 'noopener,noreferrer');
+      setMobileOpen(false);
+      return;
+    }
+    scrollTo(id);
+  };
 
   return (
     <>
@@ -32,8 +52,7 @@ export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
         <div
           className="navbar__brand"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          role="button"
-          tabIndex={0}
+          role="button" tabIndex={0}
           onKeyDown={(e) => e.key === 'Enter' && window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Back to top"
         >
@@ -44,53 +63,40 @@ export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
           </div>
         </div>
 
-        {/* Desktop Links */}
+        {/* Desktop */}
         <div className="navbar__links">
-          {navLinks.map(({ id, label }) => (
-            <button key={id} className="navbar__link" onClick={() => scrollTo(id)}>
+          {navLinks.map(({ id, label, whatsapp, icon: Icon }) => (
+            <button
+              key={label}
+              className={`navbar__link${whatsapp ? ' navbar__link--wa' : ''}`}
+              onClick={() => handleLink({ id, whatsapp })}
+              aria-label={whatsapp ? 'Chat with us on WhatsApp' : undefined}
+            >
+              {Icon && <Icon size={13} className="navbar__link-icon" aria-hidden="true" />}
               {label.toUpperCase()}
             </button>
           ))}
 
-          <button
-            className="navbar__admin-link"
-            onClick={onAdminAccess}
-            title="Admin Panel"
-            aria-label="Admin Panel"
-          >
+          <button className="navbar__admin-link" onClick={onAdminAccess} title="Admin Panel" aria-label="Admin Panel">
             <Settings size={14} />
           </button>
 
-          <button
-            className="navbar__cart-btn"
-            onClick={onCartOpen}
-            aria-label={`Shopping cart${cartCount > 0 ? `, ${cartCount} items` : ''}`}
-          >
+          <button className="navbar__cart-btn" onClick={onCartOpen}
+            aria-label={`Shopping cart${cartCount > 0 ? `, ${cartCount} items` : ''}`}>
             <ShoppingCart size={16} aria-hidden="true" />
-            {cartCount > 0 && (
-              <span className="navbar__cart-badge" aria-hidden="true">{cartCount}</span>
-            )}
+            {cartCount > 0 && <span className="navbar__cart-badge" aria-hidden="true">{cartCount}</span>}
           </button>
         </div>
 
-        {/* Mobile Actions */}
+        {/* Mobile actions */}
         <div className="navbar__mobile-actions">
-          <button
-            className="navbar__cart-btn navbar__cart-btn--mobile"
-            onClick={onCartOpen}
-            aria-label={`Cart${cartCount > 0 ? `, ${cartCount} items` : ''}`}
-          >
+          <button className="navbar__cart-btn navbar__cart-btn--mobile" onClick={onCartOpen}
+            aria-label={`Cart${cartCount > 0 ? `, ${cartCount} items` : ''}`}>
             <ShoppingCart size={16} aria-hidden="true" />
-            {cartCount > 0 && (
-              <span className="navbar__cart-badge" aria-hidden="true">{cartCount}</span>
-            )}
+            {cartCount > 0 && <span className="navbar__cart-badge" aria-hidden="true">{cartCount}</span>}
           </button>
-          <button
-            className="navbar__menu-btn"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-expanded={mobileOpen}
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          >
+          <button className="navbar__menu-btn" onClick={() => setMobileOpen(!mobileOpen)}
+            aria-expanded={mobileOpen} aria-label={mobileOpen ? 'Close menu' : 'Open menu'}>
             {mobileOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
@@ -99,9 +105,14 @@ export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="navbar__mobile-overlay" onClick={() => setMobileOpen(false)}>
-          <div className="navbar__mobile-menu" onClick={(e) => e.stopPropagation()}>
-            {navLinks.map(({ id, label }) => (
-              <button key={id} className="navbar__mobile-link" onClick={() => scrollTo(id)}>
+          <div className="navbar__mobile-menu" onClick={e => e.stopPropagation()}>
+            {navLinks.map(({ id, label, whatsapp, icon: Icon }) => (
+              <button
+                key={label}
+                className={`navbar__mobile-link${whatsapp ? ' navbar__mobile-link--wa' : ''}`}
+                onClick={() => handleLink({ id, whatsapp })}
+              >
+                {Icon && <Icon size={14} aria-hidden="true" />}
                 {label.toUpperCase()}
               </button>
             ))}
