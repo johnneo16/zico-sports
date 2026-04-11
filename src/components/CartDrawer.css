@@ -1,10 +1,10 @@
 @keyframes slideInFromRight {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes slideInFromBottom {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
 }
 
 .cart-overlay {
@@ -229,4 +229,37 @@
 .cart-drawer__checkout-btn:hover {
   background: var(--zico-red-light);
   box-shadow: 0 6px 24px rgba(230, 60, 47, 0.4);
+}
+
+/* ── Mobile: full-page cart (slides up from bottom, covers entire screen) ── */
+@media (max-width: 768px) {
+  .cart-overlay {
+    top: 0;        /* cover navbar too — this IS a dedicated page on mobile */
+    z-index: 500;
+  }
+  .cart-overlay__backdrop { display: none; }  /* no backdrop, the cart fills the screen */
+  .cart-drawer {
+    width: 100%;
+    max-width: 100%;
+    border-left: none;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px 20px 0 0;
+    padding: 8px 16px 24px;
+    animation: slideInFromBottom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  /* Drag-handle hint */
+  .cart-drawer::before {
+    content: '';
+    display: block;
+    width: 36px; height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.15);
+    margin: 0 auto 16px;
+  }
+  .cart-drawer__checkout-btn {
+    padding: 16px;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    border-radius: 12px;
+  }
 }

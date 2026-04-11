@@ -82,6 +82,17 @@
 .navbar__link:hover { color: #fff; }
 .navbar__link:hover::after { transform: scaleX(1); }
 
+/* WhatsApp Contact link */
+.navbar__link--wa {
+  color: #25d366;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.navbar__link--wa::after { background: #25d366; }
+.navbar__link--wa:hover  { color: #25d366; }
+.navbar__link-icon       { flex-shrink: 0; }
+
 /* Theme Toggle */
 .navbar__theme-toggle {
   background: rgba(255, 255, 255, 0.05);
@@ -218,6 +229,19 @@
 .navbar__mobile-link:hover {
   background: rgba(255, 255, 255, 0.05);
   color: #fff;
+  padding-left: 20px;
+}
+
+.navbar__mobile-link--wa {
+  color: #25d366;
+  background: rgba(37, 211, 102, 0.07);
+  border: 1px solid rgba(37, 211, 102, 0.18);
+  border-radius: var(--radius-md);
+  margin-bottom: 4px;
+}
+.navbar__mobile-link--wa:hover {
+  background: rgba(37, 211, 102, 0.14);
+  color: #25d366;
   padding-left: 20px;
 }
 
