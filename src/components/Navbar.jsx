@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Settings, Menu, X, MessageCircle } from 'lucide-react';
+import { ShoppingCart, Settings, Menu, X } from 'lucide-react';
 import Logo from './Logo';
 import './Navbar.css';
 
@@ -34,7 +34,7 @@ export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
     { id: 'brands-sec', label: 'Brands' },
     { id: 'why-us',     label: 'Why Us' },
     { id: 'about-sec',  label: 'About' },
-    { whatsapp: true,   label: 'Contact', icon: MessageCircle },
+    { id: 'contact-sec', label: 'Contact' },
   ];
 
   const handleLink = ({ id, whatsapp }) => {
