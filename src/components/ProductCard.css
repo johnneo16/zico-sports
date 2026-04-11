@@ -45,7 +45,6 @@
   max-height: 80%;
   object-fit: contain;
   filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
-  /* Fade in on load */
   opacity: 0;
   transition:
     opacity 0.5s ease,
@@ -57,8 +56,74 @@
   opacity: 1;
 }
 
+.product-card__photo--fading {
+  opacity: 0 !important;
+  transition: opacity 0.16s ease !important;
+}
+
 .product-card--hovered .product-card__photo {
   transform: scale(1.08) translateY(-4px) rotate(-3deg);
+}
+
+/* ── Carousel nav buttons ── */
+.product-card__img-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+  backdrop-filter: blur(6px);
+}
+
+.product-card__img-nav--prev { left: 8px; }
+.product-card__img-nav--next { right: 8px; }
+
+.product-card:hover .product-card__img-nav,
+.product-card--hovered .product-card__img-nav {
+  opacity: 1;
+}
+
+.product-card__img-nav:hover {
+  background: rgba(255, 62, 46, 0.7);
+  border-color: var(--zico-red);
+}
+
+/* ── Dot indicators ── */
+.product-card__img-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+  z-index: 3;
+}
+
+.product-card__img-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  border: none;
+  padding: 0;
+}
+
+.product-card__img-dot--active {
+  background: var(--zico-red);
+  transform: scale(1.4);
 }
 
 .product-card__surface {

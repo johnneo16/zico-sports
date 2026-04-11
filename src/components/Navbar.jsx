@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
-import { ShoppingCart, Settings, Menu, X } from 'lucide-react';
+import { ShoppingCart, Settings, Menu, X, MessageCircle } from 'lucide-react';
 import Logo from './Logo';
 import './Navbar.css';
 
+const WA_LINK =
+  'https://wa.me/917987461287?text=' +
+  encodeURIComponent("Hi Zico Sports! I'd like to enquire about your football boots. 👟");
+
 export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled,    setScrolled]    = useState(false);
+  const [mobileOpen, setMobileOpen]  = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -18,17 +22,37 @@ export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
     setMobileOpen(false);
   };
 
+  /**
+   * Nav link config.
+   * - `id`        → scroll to that section ID
+   * - `whatsapp`  → open WhatsApp directly (no scroll)
+   * - `icon`      → optional Lucide icon shown beside the label
+   */
   const navLinks = [
-    { id: 'shop-sec',    label: 'Shop' },
-    { id: 'brands-sec',  label: 'Brands' },
-    { id: 'why-us',      label: 'Why Us' },
-    { id: 'about-sec',   label: 'About' },
-    { id: 'contact-sec', label: 'Contact' },
+    { id: 'shop-sec',   label: 'Shop' },
+    { id: 'brands-sec', label: 'Brands' },
+    { id: 'why-us',     label: 'Why Us' },
+    { id: 'about-sec',  label: 'About' },
+    { whatsapp: true,   label: 'Contact', icon: MessageCircle },
   ];
+
+  const handleNavClick = ({ id, whatsapp }) => {
+    if (whatsapp) {
+      window.open(WA_LINK, '_blank', 'noopener,noreferrer');
+      setMobileOpen(false);
+      return;
+    }
+    scrollTo(id);
+  };
 
   return (
     <>
-      <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`} role="navigation" aria-label="Main navigation">
+      <nav
+        className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}
+        role="navigation"
+        aria-label="Main navigation"
+      >
+        {/* Brand / Logo */}
         <div
           className="navbar__brand"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
@@ -46,11 +70,20 @@ export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
 
         {/* Desktop Links */}
         <div className="navbar__links">
-          {navLinks.map(({ id, label }) => (
-            <button key={id} className="navbar__link" onClick={() => scrollTo(id)}>
-              {label.toUpperCase()}
-            </button>
-          ))}
+          {navLinks.map((link) => {
+            const Icon = link.icon;
+            return (
+              <button
+                key={link.label}
+                className={`navbar__link ${link.whatsapp ? 'navbar__link--whatsapp' : ''}`}
+                onClick={() => handleNavClick(link)}
+                aria-label={link.whatsapp ? 'Contact us on WhatsApp' : undefined}
+              >
+                {Icon && <Icon size={13} aria-hidden="true" className="navbar__link-icon" />}
+                {link.label.toUpperCase()}
+              </button>
+            );
+          })}
 
           <button
             className="navbar__admin-link"
@@ -100,11 +133,19 @@ export default function Navbar({ cartCount, onCartOpen, onAdminAccess }) {
       {mobileOpen && (
         <div className="navbar__mobile-overlay" onClick={() => setMobileOpen(false)}>
           <div className="navbar__mobile-menu" onClick={(e) => e.stopPropagation()}>
-            {navLinks.map(({ id, label }) => (
-              <button key={id} className="navbar__mobile-link" onClick={() => scrollTo(id)}>
-                {label.toUpperCase()}
-              </button>
-            ))}
+            {navLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <button
+                  key={link.label}
+                  className={`navbar__mobile-link ${link.whatsapp ? 'navbar__mobile-link--whatsapp' : ''}`}
+                  onClick={() => handleNavClick(link)}
+                >
+                  {Icon && <Icon size={14} aria-hidden="true" />}
+                  {link.label.toUpperCase()}
+                </button>
+              );
+            })}
             <button
               className="navbar__mobile-link navbar__mobile-link--admin"
               onClick={() => { onAdminAccess(); setMobileOpen(false); }}

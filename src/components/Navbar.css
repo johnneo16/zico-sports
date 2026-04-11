@@ -82,6 +82,18 @@
 .navbar__link:hover { color: #fff; }
 .navbar__link:hover::after { transform: scaleX(1); }
 
+/* WhatsApp contact link — green tint */
+.navbar__link--whatsapp {
+  color: rgba(37, 211, 102, 0.8);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.navbar__link--whatsapp:hover { color: #25d366; }
+.navbar__link--whatsapp::after { background: #25d366; }
+
+.navbar__link-icon { flex-shrink: 0; }
+
 /* Theme Toggle */
 .navbar__theme-toggle {
   background: rgba(255, 255, 255, 0.05);
@@ -227,6 +239,17 @@
   border-top: 1px solid var(--border-default);
   padding-top: 16px;
   border-radius: 0;
+}
+
+.navbar__mobile-link--whatsapp {
+  color: #25d366;
+  background: rgba(37, 211, 102, 0.06);
+  border: 1px solid rgba(37, 211, 102, 0.15);
+}
+.navbar__mobile-link--whatsapp:hover {
+  background: rgba(37, 211, 102, 0.12);
+  color: #25d366;
+  padding-left: 20px;
 }
 
 /* Responsive */
