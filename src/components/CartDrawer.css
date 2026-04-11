@@ -9,30 +9,30 @@
 
 .cart-overlay {
   position: fixed;
-  top: 80px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 350;
+  inset: 0;                          /* cover full screen including navbar */
+  z-index: 450;                      /* above navbar (200) and cards */
   display: flex;
 }
 
 .cart-overlay__backdrop {
   flex: 1;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   animation: fadeIn 0.2s ease;
 }
 
 .cart-drawer {
-  width: 380px;
-  max-width: 90vw;
-  background: var(--bg-card);
-  border-left: 1px solid var(--border-default);
+  width: 400px;
+  max-width: 92vw;
+  background: #0f0f0f;               /* solid — no bleed-through */
+  border-left: 1px solid rgba(255,255,255,0.08);
   padding: 26px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   animation: slideInFromRight 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -20px 0 60px rgba(0,0,0,0.8);
 }
 
 /* Header */
@@ -231,21 +231,33 @@
   box-shadow: 0 6px 24px rgba(230, 60, 47, 0.4);
 }
 
-/* ── Mobile: full-page cart (slides up from bottom, covers entire screen) ── */
+/* ── Mobile: bottom-sheet cart ── */
 @media (max-width: 768px) {
   .cart-overlay {
-    top: 0;        /* cover navbar too — this IS a dedicated page on mobile */
     z-index: 500;
+    align-items: flex-end;           /* sheet sticks to bottom */
   }
-  .cart-overlay__backdrop { display: none; }  /* no backdrop, the cart fills the screen */
+  .cart-overlay__backdrop {
+    position: absolute;
+    inset: 0;
+    display: block;                  /* keep backdrop — covers page content */
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
   .cart-drawer {
+    position: relative;              /* above backdrop */
+    z-index: 1;
     width: 100%;
     max-width: 100%;
+    max-height: 85dvh;
     border-left: none;
-    border-top: 1px solid rgba(255,255,255,0.06);
+    border-top: 1px solid rgba(255,255,255,0.08);
     border-radius: 20px 20px 0 0;
-    padding: 8px 16px 24px;
+    padding: 8px 20px 32px;
+    background: #0f0f0f;             /* solid dark — nothing bleeds through */
     animation: slideInFromBottom 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 -20px 60px rgba(0,0,0,0.9);
   }
   /* Drag-handle hint */
   .cart-drawer::before {
@@ -253,8 +265,8 @@
     display: block;
     width: 36px; height: 4px;
     border-radius: 2px;
-    background: rgba(255,255,255,0.15);
-    margin: 0 auto 16px;
+    background: rgba(255,255,255,0.18);
+    margin: 8px auto 16px;
   }
   .cart-drawer__checkout-btn {
     padding: 16px;
