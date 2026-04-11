@@ -20,19 +20,26 @@
   border-radius: var(--radius-xl);
   max-width: 520px;
   width: 100%;
-  max-height: 90dvh;
-  overflow-y: auto;
-  overflow-x: hidden;
+  max-height: 94dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 62, 46, 0.05);
   position: relative;
   animation: modalEnter 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  /* Custom scrollbar inside modal */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 }
 
-.product-modal::-webkit-scrollbar { width: 4px; }
-.product-modal::-webkit-scrollbar-thumb {
+.product-modal__body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  flex: 1;
+  min-height: 0;
+  padding: 20px 24px 24px;
+}
+.product-modal__body::-webkit-scrollbar { width: 4px; }
+.product-modal__body::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 2px;
 }
@@ -44,18 +51,19 @@
 
 /* ── Hero area ── */
 .product-modal__hero {
-  height: 280px;
+  height: 240px;
   background: linear-gradient(135deg, #111 0%, #000 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   position: relative;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
-  padding: 20px 0 8px; /* top buffer so float animation (-10px) never clips */
+  padding: 16px 16px 10px;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 /* subtle red corner glow */
@@ -72,17 +80,17 @@
 }
 
 .product-modal__photo {
-  max-width: 75%;
-  max-height: 75%;
+  max-width: 80%;
+  max-height: 100%;
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
-  animation: float 4s ease-in-out infinite;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.5));
   z-index: 1;
   transition: opacity 0.15s ease;
+  display: block;
 }
-.product-modal__photo--fading { opacity: 0 !important; animation: none !important; }
+.product-modal__photo--fading { opacity: 0 !important; }
 
 /* Modal carousel nav */
 .product-modal__img-nav {
@@ -118,8 +126,7 @@
 .product-modal__img-dot--active { background: var(--zico-red); transform: scale(1.5); }
 
 .product-modal__emoji {
-  font-size: 72px;
-  animation: float 3.5s ease-in-out infinite;
+  font-size: 64px;
   z-index: 1;
 }
 
@@ -160,11 +167,6 @@
   transform: rotate(90deg);
 }
 
-/* ── Body ── */
-.product-modal__body {
-  padding: 28px;
-}
-
 .product-modal__brand {
   font-size: 9px;
   color: var(--zico-red);
@@ -187,8 +189,8 @@
 
 /* Sizing */
 .product-modal__size-selector {
-  margin: 24px 0;
-  padding-top: 24px;
+  margin: 16px 0;
+  padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -342,8 +344,8 @@
   }
 
   .product-modal__hero {
-    height: 210px;
-    padding: 16px 0 6px;
+    height: 200px;
+    padding: 12px 12px 8px;
   }
 
   .product-modal__emoji {
