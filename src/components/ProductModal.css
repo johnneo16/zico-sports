@@ -51,18 +51,14 @@
 
 /* ── Hero area ── */
 .product-modal__hero {
-  height: 240px;
+  height: 220px;
   background: linear-gradient(135deg, #111 0%, #000 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  gap: 10px;
   position: relative;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
-  padding: 16px 16px 10px;
-  box-sizing: border-box;
   flex-shrink: 0;
 }
 
@@ -79,16 +75,31 @@
   pointer-events: none;
 }
 
+/* Overlay fills the hero, centres its child, clips overflow */
+.product-modal__hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
 .product-modal__photo {
-  max-width: 80%;
-  max-height: 100%;
+  /* Fixed pixel cap — works regardless of image aspect ratio */
+  max-height: 160px;
+  max-width: 100%;
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.55));
   z-index: 1;
   transition: opacity 0.15s ease;
   display: block;
+  border-radius: 6px;
 }
 .product-modal__photo--fading { opacity: 0 !important; }
 
@@ -344,8 +355,11 @@
   }
 
   .product-modal__hero {
-    height: 200px;
-    padding: 12px 12px 8px;
+    height: 190px;
+  }
+
+  .product-modal__photo {
+    max-height: 130px;
   }
 
   .product-modal__emoji {
