@@ -2,7 +2,7 @@
   padding: 120px 32px;
   position: relative;
   background: #000;
-  overflow: hidden;
+  /* overflow: hidden removed — it was clipping first-row cards on hover lift */
 }
 
 .shop-section__bg {
@@ -10,6 +10,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden; /* clip the texture/overlay here instead */
 }
 
 .shop-section__texture {
@@ -287,6 +288,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 18px;
+  padding-top: 12px; /* breathing room so hover lift isn't clipped */
 }
 
 /* Empty state */
